@@ -44,8 +44,7 @@ class CategoryProductController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Se ha guardado satisfactoriamente');
-
-            return $this->redirectToRoute('category_product_index');
+            return $this->redirectToRoute('category_producto_cropper', [ 'id' => $categoryProduct->getId() ]);
         }
 
         return $this->render('category_product/new.html.twig', [
@@ -146,6 +145,11 @@ class CategoryProductController extends AbstractController
         if (!$request->isXmlHttpRequest()){
             throw $this->createNotFoundException();
         }
+
+        if (!$categoryProduct->getImage()){
+            return new JsonResponse('La categoría no puede publicarse porque no contiene imagen', 400);
+        }
+
 
         $categoryProduct->getActive() ? $categoryProduct->setActive(0) : $categoryProduct->setActive(1);
 

@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductType extends AbstractType
+class ProductEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -38,6 +38,7 @@ class ProductType extends AbstractType
                 'class' => CategoryProduct::class,
                 'placeholder' => 'Seleccionar'
             ])
+            ->add('public')
         ;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductEditType;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Service\ImageCropUpload;
@@ -45,7 +46,7 @@ class ProductController extends AbstractController
 
             $this->addFlash('success', 'Se ha guardado satisfactoriamente');
 
-            return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('producto_cropper', [ 'id' => $product->getId() ]);
         }
 
         return $this->render('product/new.html.twig', [
@@ -69,7 +70,7 @@ class ProductController extends AbstractController
      */
     public function edit(Request $request, Product $product): Response
     {
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductEditType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

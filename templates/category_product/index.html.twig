@@ -53,7 +53,7 @@
                                 <td>
                                     <a href="{{ path('category_producto_cropper', {'id': category_product.id }) }}">
                                     {% if category_product.image %}
-                                        <img src="{{ asset('images/' ~ category_product.image) }}" class="img-fluid">
+                                        <img src="{{ asset('images/' ~ category_product.image) }}" class="img-fluid img-50">
                                     {% else %}
                                         <i class="fa fa-image fa-3x text-danger"></i>
                                     {% endif %}
@@ -139,6 +139,9 @@
                     },
                     500: function (response) {
                         notifyAlert('error', response.responseJSON);
+                    },
+                    400: function (response) {
+                        notifyAlert('danger', response.responseJSON)
                     }
                 }
             });

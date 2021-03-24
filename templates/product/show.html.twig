@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h4 class="page-title">Product</h4>
+        <ul class="breadcrumbs">
+            <li class="nav-home">
+                <a href="{{ path('dashboard') }}">
+                    <i class="flaticon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-home">
+                <a href="{{ path('product_index') }}">
+                    Listado </a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">Mostrar </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{ asset('images/' ~ product.image) }}" alt="" class="img-fluid img-thumbnail">
+            <p><a href="{{ path('producto_cropper', { 'id' : product.id }) }}" class="btn btn-warning btn-block mt-2">Editar imagen</a></p>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Mostrar</h5>
+                    <div class="card-tools float-right">
+                        <a href="{{ path('product_index') }}" class="btn btn-secondary btn-xs"><i
+                                    class="fa fa-list"></i> Regresar</a>
+                        <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-warning btn-xs"><i
+                                    class="fa fa-edit"></i> Editar</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{ product.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{ product.description | raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Url</th>
+                                <td><a href="{{ product.url }}" class="btn btn-secondary"><i class="fa fa-link"></i> Visitar</a></td>
+                            </tr>
+                            <tr>
+                                <th>Price</th>
+                                <td>${{ product.price }} USD</td>
+                            </tr>
+                            <tr>
+                                <th>Public</th>
+                                <td>{{ product.public ? 'Si' : 'No' }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

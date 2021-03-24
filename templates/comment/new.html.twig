@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Comment{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h4 class="page-title">Comment</h4>
+        <ul class="breadcrumbs">
+            <li class="nav-home">
+                <a href="{{ path('dashboard') }}">
+                    <i class="flaticon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('comment_index') }}">Listado de Comment</a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">Crear nuevo Comment</a>
+            </li>
+        </ul>
+    </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Nuevo Comment</h5>
+                <div class="card-tools float-right">
+                    <a href="{{ path('comment_index') }}" class="{{ path('comment_index') }}">Regresar</a>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ include('comment/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+<div class="sidebar sidebar-style-2" data-background-color="dark2">
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+            <div class="user">
+                <div class="avatar-sm float-left mr-2">
+                    {% if app.user.image %}
+                        <img src="{{ asset('images/' ~ app.user.image) }}" alt="{{ app.user }}"
+                             class="avatar-img rounded-circle">
+                    {% else %}
+                        {#                                    <img src="{{ asset('images/default.jpg') }}" alt="{{ app.user }}" class="avatar-img rounded-circle">#}
+                        <i class="fa fa-user fa-3x avatar-img rounded-circle"></i>
+                    {% endif %}
+                </div>
+                <div class="info">
+                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+								<span>
+									{{ app.user | capitalize }}
+									<span class="user-level">Administrator</span>
+									<span class="caret"></span>
+								</span>
+                    </a>
+                    <div class="clearfix"></div>
+
+                    <div class="collapse in" id="collapseExample">
+                        <ul class="nav">
+                            <li>
+                                <a href="#profile">
+                                    <span class="link-collapse">Perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#edit">
+                                    <span class="link-collapse">Editar Perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#settings">
+                                    <span class="link-collapse">Configuración</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-primary">
+                <li class="nav-section">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+                    <h4 class="text-section">Componentes</h4>
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#base">
+                        <i class="fas fa-layer-group"></i>
+                        <p>Productos</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="base">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ path('product_index') }}">
+                                    <span class="sub-item">Productos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('category_product_index') }}">
+                                    <span class="sub-item">Categoría</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#usuario">
+                        <i class="fas fa-users-cog"></i>
+                        <p>Usuarios</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="usuario">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ path('user_index') }}">
+                                    <span class="sub-item">Usuarios</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.dataTables.min.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="page-header">
+        <h4 class="page-title">Product</h4>
+        <ul class="breadcrumbs">
+            <li class="nav-home">
+                <a href="{{ path('dashboard') }}">
+                    <i class="flaticon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">Listado</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-tools float-right">
+                        <a href="{{ path('product_new') }}" class="btn btn-secondary btn-xs"><i
+                                    class="fa fa-plus-circle"></i> Nuevo</a>
+                    </div>
+                </div>
+                <div class="card-body table-responsive">
+
+                    <table class="table table-striped" id="basic-datatables">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Url</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                            <th>Public</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>
+                                    <a href="{{ product.url }}" target="_blank" class="btn btn-dark btn-lg">Visitar</a>
+                                </td>
+                                <td>{{ product.price }}</td>
+                                <td>
+                                    <a href="{{ path('producto_cropper', { 'id' : product.id }) }}">
+                                        {% if product.image %}
+                                            <img src="{{ asset('images/' ~ product.image) }}" class="img-fluid">
+                                        {% else %}
+                                            <i class="fa fa-image text-danger fa-3x"></i>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a onclick="changePublic(this); return false;" href="{{ path('product_public', { 'id': product.id }) }}">
+                                        {% if product.public %}
+                                            <i class="far fa-check-square text-success fa-lg"></i>
+                                        {% else %}
+                                            <i class="far fa-square text-danger fa-lg"></i>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-dark btn-xs dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="d-none"><i class="fa fa-spinner fa-pulse"></i></span>
+                                            Seleccionar
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a href="{{ path('product_show', {'id': product.id}) }}"
+                                               class="dropdown-item"><i class="fa fa-list"></i> Detalle</a>
+                                            <a href="{{ path('product_edit', {'id': product.id}) }}"
+                                               class="dropdown-item"><i class="fa fa-edit"></i> Editar</a>
+                                            <!--                            <div class="dropdown-divider"></div>-->
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">No hay registro que mostrar</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.responsive.min.js') }}"></script>
+    <script>
+        $('#basic-datatables').DataTable({
+            "language": {
+                "paginate": {
+                    "first": "Primera pagina",
+                    "last": "Última pagina",
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                },
+                "zeroRecords": "No hay registro que mostrar",
+                "emptyTable": "No hay datos",
+                "info": "Mostrar pagina _PAGE_ of _PAGES_",
+                "infoEmpty": "No hay entradas que mostrar",
+                "loadingRecords": "Espere por favor...",
+                "search": "Buscar:",
+                "zeroRecords": "No hay registro que mostrar",
+                "sLengthMenu": "Mostrar _MENU_ entradas",
+                "sInfoFiltered": "(filtrado de _MAX_ total de entradas)",
+            },
+            "responsive": true,
+        });
+
+        function changePublic(element) {
+            $.ajax({
+                url: element.href,
+                beforeSend: function () {
+
+                },
+                statusCode: {
+                    200: function (response) {
+                        notifyAlert('success', response.message);
+                        if (response.public == 1){
+                            $(element).html('<i class="far fa-check-square text-success fa-lg"></i>');
+                        }else{
+                            $(element).html('<i class="far fa-square text-danger fa-lg"></i>');
+                        }
+                    },
+                    500: function (response) {
+                        notifyAlert('error', response.responseJSON);
+                    },
+                    400: function (response) {
+                        notifyAlert('danger', response.responseJSON);
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock %}

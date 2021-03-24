@@ -1,0 +1,171 @@
+.login-page, .register-page {
+    background-image: url(../../img/bg-login.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    backdrop-filter: contrast(90%);
+}
+.login-logo, .register-logo {
+    font-weight: bold;
+    font-size: 32px;
+    color: #FFF;
+}
+.login-logo p{
+    color: #18519c;
+}
+.login-box .card-body {
+    background-color: rgba(255,255,255, 0.3);
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+.actions:last-child a {
+    padding-left: 5px;
+}
+.swal2-popup.swal2-toast .swal2-title {
+    padding-left: 10px;
+}
+label.required::after{
+    content: " *";
+    color: red;
+}
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    height: 38px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 38px;
+}
+.image-user-profile {
+    position: absolute;
+    margin-left: 45px;
+    float: bottom;
+
+}
+.login-box {
+    border-bottom-left-radius: 50px;
+}
+@media (min-width: 921px) {
+    .login-box {
+        width: 360px;
+        margin: 90px auto;
+    }
+}
+@media (max-width: 920px){
+    .login-box {
+        width: 80%;
+        margin: 50px auto;
+    }
+}
+
+.login-box .card {
+    background-color: rgba(255,255,255,0.4);
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+.foto-miniatura {
+    width: 2rem;
+    height: 2rem;
+    line-height: 4rem;
+    font-size: 1.75rem;
+    border-radius: 50%;
+    display: inline-block;
+    background: #ced4da no-repeat center/cover;
+    position: relative;
+    text-align: center;
+    color: #868e96;
+    font-weight: 600;
+    vertical-align: bottom;
+    user-select: none;
+}
+.foto-2x {
+    width: 4rem;
+    height: 4rem;
+}
+.foto-3x {
+    width: 6rem;
+    height: 6rem;
+}
+.foto-4x {
+    width: 8rem;
+    height: 8rem;
+}
+.docs-preview {
+    margin-right: -1rem;
+}
+
+.img-preview {
+    float: left;
+    margin-bottom: .5rem;
+    margin-right: .5rem;
+    overflow: hidden;
+}
+
+.img-preview > img {
+    max-width: 100%;
+}
+
+.preview-lg {
+    height: 9rem;
+    width: 16rem;
+}
+
+.preview-md {
+    height: 4.5rem;
+    width: 8rem;
+}
+
+.preview-sm {
+    height: 2.25rem;
+    width: 4rem;
+}
+
+.preview-xs {
+    height: 1.125rem;
+    margin-right: 0;
+    width: 2rem;
+}
+
+.docs-data > .input-group {
+    margin-bottom: .5rem;
+}
+
+.docs-data > .input-group > label {
+    justify-content: center;
+    min-width: 5rem;
+}
+
+.docs-data > .input-group > span {
+    justify-content: center;
+    min-width: 3rem;
+}
+
+.docs-buttons > .btn,
+.docs-buttons > .btn-group,
+.docs-buttons > .form-control {
+    margin-bottom: .5rem;
+    margin-right: .25rem;
+}
+
+.docs-toggles > .btn,
+.docs-toggles > .btn-group,
+.docs-toggles > .dropdown {
+    margin-bottom: .5rem;
+}
+
+.docs-tooltip {
+    display: block;
+    margin: -.5rem -.75rem;
+    padding: .5rem .75rem;
+}
+
+.docs-tooltip > .icon {
+    margin: 0 -.25rem;
+    vertical-align: top;
+}
+.docs-cropped .modal-body>img, .docs-cropped .modal-body>canvas {
+    max-width: 100%;
+}
+.list-inline > li {
+    display: inline ;
+}

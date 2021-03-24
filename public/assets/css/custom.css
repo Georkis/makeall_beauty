@@ -1,0 +1,23 @@
+/*form-check [type=checkbox]:checked, .form-check [type=checkbox]:not(:checked) {*/
+/*    position: absolute;*/
+/*    left: 1px;*/
+/*}*/
+table td, .table th {
+    height: 40px !important;
+}
+.form-control:disabled, .form-control[readonly] {
+    background: #8a1414!important;
+    border-color: #e8e8e8!important;
+}
+.img-150 {
+    width: 150px;
+    height: auto;
+}
+.img-100 {
+    width: 100px;
+    height: auto;
+}
+.img-50 {
+    width: 50px;
+    height: auto;
+}

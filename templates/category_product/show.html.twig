@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CategoryProduct{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h4 class="page-title">Categoría Producto</h4>
+        <ul class="breadcrumbs">
+            <li class="nav-home">
+                <a href="{{ path('dashboard') }}">
+                    <i class="flaticon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-home">
+                <a href="{{ path('category_product_index') }}">
+                    Listado                </a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">Mostrar </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{ asset('images/' ~ category_product.image) }}" alt="" class="img-fluid">
+            <a href="{{ path('category_producto_cropper', { 'id' : category_product.id }) }}" class="btn btn-warning btn-block mt-2">Editar imagen</a>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Mostrar</h5>
+                    <div class="card-tools float-right">
+                        <a href="{{ path('category_product_index') }}" class="btn btn-secondary btn-xs"><i class="fa fa-list"></i> Regresar</a>
+                        <a href="{{ path('category_product_edit', {'id': category_product.id}) }}" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                                            <tr>
+                                    <th>Id</th>
+                                    <td>{{ category_product.id }}</td>
+                                </tr>
+                                                            <tr>
+                                    <th>Name</th>
+                                    <td>{{ category_product.name }}</td>
+                                </tr>
+                                                            <tr>
+                                    <th>Active</th>
+                                    <td>{{ category_product.active ? 'Yes' : 'No' }}</td>
+                                </tr>
+                                                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

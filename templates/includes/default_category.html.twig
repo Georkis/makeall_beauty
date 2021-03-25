@@ -1,0 +1,13 @@
+<div class="hero__categories">
+    <div class="hero__categories__all">
+        <i class="fa fa-bars"></i>
+        <span>Categoría</span>
+    </div>
+    <ul>
+        {% for c in categories %}
+            <li><a href="{{ path('default_categoria_producto', {'id': c.id }) }}">{{ c }}</a></li>
+        {% else %}
+            <li><a href="#">No hay categoría</a></li>
+        {% endfor %}
+    </ul>
+</div>

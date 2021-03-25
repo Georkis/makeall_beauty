@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,20 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(
- *     collectionOperations={
- *          "get" = {
- *              "path" = "/productos",
- *              "normalizationContext"={"groups"={"producto:read"}}
- *          }
- *     },
- *     itemOperations={
- *          "get" = {
- *              "path" = "/producto/{id}"
- *          }
- *     },
- *     paginationItemsPerPage=10
- * )
+ * @ApiFilter(SearchFilter::class, properties={"categoryProduct":"partial"})
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @UniqueEntity(fields={"url"})
  */
@@ -97,6 +86,16 @@ class Product
      * @Groups("producto:read")
      */
     private $public;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $visita;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $likeCount;
 
     public function __toString(): ?string
     {
@@ -247,5 +246,29 @@ class Product
     public function count()
     {
         return $this->comments->count();
+    }
+
+    public function getVisita(): ?int
+    {
+        return $this->visita;
+    }
+
+    public function setVisita(?int $visita): self
+    {
+        $this->visita = $visita;
+
+        return $this;
+    }
+
+    public function getLikeCount(): ?int
+    {
+        return $this->likeCount;
+    }
+
+    public function setLikeCount(?int $likeCount): self
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
     }
 }

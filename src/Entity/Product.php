@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,7 +15,25 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiFilter(SearchFilter::class, properties={"categoryProduct":"partial"})
+ * @ApiResource(
+ *      collectionOperations={
+ *          "get" = {
+ *              "normalization_context"={"groups"="producto"}
+ *          },
+ *          "buscador" = {
+ *              "path" = "/buscador",
+ *              "method" = "get",
+ *              "normalization_context"={"groups"="buscador"},
+ *          }
+ *     },
+ *      itemOperations={
+ *         "get"
+ *     },
+ *     paginationItemsPerPage=1
+ * )
+ *
+ * @ApiFilter(SearchFilter::class, properties={"name":"partial","categoryProduct":"partial"})
+ * @ApiFilter(BooleanFilter::class, properties={"public":"exact"})
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @UniqueEntity(fields={"url"})
  */
@@ -24,13 +43,14 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"producto"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank()
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $name;
 
@@ -38,7 +58,7 @@ class Product
      * @ORM\ManyToOne(targetEntity=CategoryProduct::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $categoryProduct;
 
@@ -56,7 +76,7 @@ class Product
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
-     * @Groups("producto:read")
+     * @Groups({"producto"})
      */
     private $description;
 
@@ -64,26 +84,26 @@ class Product
      * @ORM\Column(type="string", length=150, unique=true)
      * @Assert\NotBlank()
      * @Assert\Url()
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $url;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("producto:read")
+     * @Groups({"producto"})
      */
     private $public;
 

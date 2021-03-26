@@ -16,3 +16,7 @@
 .text-rosado {
     color: #d0176f!important;
 }
+.btn-outline-danger.focus, .btn-outline-danger:focus {
+    color: darkred;
+    box-shadow: 0 0 0 0.2rem rgba(220,53,69,.5);
+}

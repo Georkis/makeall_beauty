@@ -40,11 +40,11 @@
                             <div class="featured__item__pic set-bg" data-setbg="{{ asset('images/' ~ p.image) }}">
                                 <ul class="featured__item__pic__hover">
                                     <li><a onclick="likePlus(this); return false;" href="{{ path('default_like_product', { 'id' : p.id }) }}"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="{{ path('default_product', {'id': p.id}) }}"><i class="fa fa-link"></i></a></li>
+                                    <li><a href="{{ path('default_product', {'slug': p.slug}) }}"><i class="fa fa-link"></i></a></li>
                                 </ul>
                             </div>
                             <div class="featured__item__text">
-                                <h6><a href="{{ path('default_product', {'id': p.id}) }}">{{ p }}</a></h6>
+                                <h6><a href="{{ path('default_product', {'slug': p.slug}) }}">{{ p }}</a></h6>
                                 <h5>US${{ p.price }}</h5>
                             </div>
                         </div>

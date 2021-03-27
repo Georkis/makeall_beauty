@@ -4,9 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="keywords" content="Beauty Accesorios de belleza">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ app.request.scheme ~ '://' ~ app.request.host  ~ app.request.requestUri }}">
+    {% block metas %}{% endblock %}
     <title>Makeallbeauty::{% block title %}{% endblock %}</title>
 
     <!-- Google Font -->
@@ -22,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}" type="text/css">
+    <link rel="canonical" href="{{ app.request.scheme ~ '://' ~ app.request.host  ~ app.request.requestUri }}">
 </head>
 
 <body>
@@ -133,16 +138,15 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                <div class="hero__search mt-3">
-                    <div class="hero__search__form">
-                        <form action="#">
-                            <div class="hero__search__categories">
-                                Todas
-                                <span class="arrow_carrot-down"></span>
-                            </div>
-                            <input type="text" placeholder="Que deseas buscar?">
-                            <button type="submit" class="site-btn"><i class="fa fa-search"></i></button>
-                        </form>
+                <div class="input-group mb-1 mt-4">
+                    <div class="input-group-prepend">
+                        <button id="buscadorCategoria" data-url="/api/buscador?page=1&public=true" data-category="Todos los departamentos" data-name="" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todos los departamentos</button>
+                        <div class="dropdown-menu" id="categorias">
+                        </div>
+                    </div>
+                    <input id="name" name="name" type="text" class="form-control" aria-label="¿Que deseas buscar?" placeholder="¿Que deseas buscar?">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-danger" type="button" id="btn-search"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -161,7 +165,7 @@
             <div class="col-lg-3">
                 {{ render(controller('App\\Controller\\DefaultController::menuCategory')) }}
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-9" id="result-search">
                 {% block body_estrecho %}{% endblock %}
             </div>
         </div>
@@ -204,9 +208,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer__copyright">
-                    <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                    <div class="footer__copyright__text">
+                        <p>Compañia MakeAllbeauty <script>document.write(new Date().getFullYear())</script></p>
+                    </div>
+{#                    <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->#}
+{#                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>#}
+{#                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>#}
                 </div>
             </div>
         </div>
@@ -216,6 +223,8 @@
 
 <!-- Js Plugins -->
 <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+{#<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>#}
+<script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
 <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
@@ -223,6 +232,156 @@
 <script src="j{{ asset('s/mixitup.min.js') }}"></script>
 <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/functions.js') }}"></script>
+<script>
+    $.ajax({
+        url: '/api/category_products?page=1&active=true',
+        method: 'GET',
+        beforeSend: function () {
+            $('#categorias').html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+        }
+    }).done(function (response) {
+        let categories = response['hydra:member'];
+        $('#categorias').children().remove();
+        $('#categorias').html('<a onclick="searchCategory(this); return false;" href="/api/buscador?public=true&page=1" class="dropdown-item">Todos los departamentos</a>');
+
+        $.each(categories, function (key, val) {
+            $('#categorias').append('<a onclick="searchCategory(this); return false;" class="dropdown-item" href="/api/buscador?categoryProduct='+val.id+'&public=true&page=1">'+val.name+'</a>');
+        });
+    });
+
+    function searchCategory(element) {
+        $('#buscadorCategoria').text($(element).text());
+        $('#buscadorCategoria').attr('data-category', $(element).text());
+        $('#buscadorCategoria').attr('data-url', element.href);
+        $('#buscadorCategoria').attr('data-name', $('#name').val());
+    }
+
+    $('#name').keyup(function (event) {
+        event.preventDefault();
+        $('#buscadorCategoria').attr('data-name', $('#name').val());
+    })
+
+    $('#btn-search').click(function () {
+        var url = $('#buscadorCategoria').attr('data-url');
+        var name = $('#buscadorCategoria').attr('data-name');
+        var stringSearch = name == "" ? '' : '&name='+name;
+
+        getProductBuscador(url+stringSearch);
+    });
+
+    function getProductBuscador(urlApi){
+        $.ajax({
+            url: urlApi,
+            method: 'GET',
+            beforeSend: function () {
+                $('#result-search').html('<span><i class="fa fa-circle-o-notch fa-spin"></i> buscando resultado...</span>');
+            },
+        }).done(function (response) {
+            // $('#result-search').children().remove();
+            var products = response['hydra:member'];
+            console.log(products);
+            var total = response['hydra:totalItems'];
+            var pageSize = 8;
+
+            let category = $('#buscadorCategoria').attr('data-category');
+            $('#result-search').html('<h4 class="mb-2">'+category+'</h4><hr>' +
+                '<div class="row featured__filter" id="contenidoResult">' +
+                '</div>');
+            if (total > pageSize) {
+                var view = response['hydra:view'];
+                var next = view['hydra:next'];
+                var first = view['hydra:first'];
+                var last = view['hydra:last'];
+                var previous = view['hydra:previous'];
+                var idVar = view['@id'];
+                var page = idVar.substring(idVar.indexOf("page="));
+                var pageCurrent = page.substring(page.indexOf("=")+1);
+
+                var pageCont =Math.ceil(total/pageSize);
+                $('#pages-paginate-result').children().remove();
+
+                $('#contenidoResult').after(
+                    '<div class="row featured__filter">' +
+                        '<div class="col">' +
+                            '<a onclick="getProductBuscador(this); return false;" id="previous" href="" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i></a>' +
+                            '<span id="paginationBuscador"></span>' +
+                            '<a onclick="getProductBuscador(this); return false;" id="next" href="" class="btn btn-outline-danger ml-2"><i class="fa fa-angle-right"></i></a>' +
+                        '</div>' +
+                    '</div>'
+                );
+                let url = $('#buscadorCategoria').attr('data-url');
+                let btnUrlPaginate = url.substr(0, url.indexOf("page="));
+                console.log(btnUrlPaginate);
+                for (let i = 1; i <= pageCont; i++){
+                    $('#paginationBuscador').append(
+                        '<a onclick="getProductBuscador(this); return false;" href="'+btnUrlPaginate+'page='+i+'" class="btn btn-'+(pageCurrent == i ? 'danger' : 'outline-danger')+' ml-1">'+i+'</a>'
+                    );
+                }
+
+                if (first == idVar){
+                    $('#previous').attr('href', '').addClass('disabled').addClass('btn-gray');
+                }else {
+                    $('#previous').removeClass('disabled').removeClass('btn-gray');
+                }
+                if (last == idVar){
+                    $('#next').attr('href', '#').addClass('disabled').addClass('btn-gray');
+                }else {
+                    $('#next').removeClass('disabled').removeClass('btn-gray');
+                }
+
+                $('#next').attr('href', next);
+                $('#previous').attr('href', previous ?? idVar);
+
+                $('#paginate-contenido').removeClass('d-none');
+
+                $('#label-pages').html(
+                    'Pagina: '+ pageCurrent +' - '+ total
+                );
+
+                for (let i = 0; i < products.length; i++){
+                    let image = "/images/"+products[i]['image'];
+                    $('#contenidoResult').append(
+                        '<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">' +
+                            '<div class="featured__item">' +
+                                '<div class="featured__item__pic set-bg thumbnail" data-setbg="'+image+'" style="background-image: url('+image+');">' +
+                                    '<ul class="featured__item__pic__hover">' +
+                                        '<li><a onclick="likePlus(this); return false;" href="/like/product/'+products[i]['id']+'"><i class="fa fa-heart"></i></a></li>' +
+                                        '<li><a href="/producto/'+products[i]['slug']+'"><i class="fa fa-link"></i></a></li>' +
+                                    '</ul>' +
+                                '</div>' +
+                                '<div class="featured__item__text">' +
+                                    '<h6><a href="/producto/'+products[i]['slug']+'">'+products[i]['name']+'</a></h6>\n' +
+                                    '<h5>US$ '+products[i]['price']+'</h5>\n' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>'
+                    );
+                }
+            }else {
+                for (let i = 0; i < products.length; i++){
+                    let image = "/images/"+products[i]['image'];
+                    $('#contenidoResult').append(
+                        '<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">' +
+                            '<div class="featured__item">' +
+                                '<div class="featured__item__pic set-bg thumbnail" data-setbg="'+image+'" style="background-image: url('+image+');">' +
+                                    '<ul class="featured__item__pic__hover">' +
+                                        '<li><a onclick="likePlus(this); return false;" href="/like/product/'+products[i]['id']+'"><i class="fa fa-heart"></i></a></li>' +
+                                        '<li><a href="/producto/'+products[i]['slug']+'"><i class="fa fa-link"></i></a></li>' +
+                                    '</ul>' +
+                                '</div>' +
+                                '<div class="featured__item__text">' +
+                                    '<h6><a href="/producto/'+products[i]['slug']+'">'+products[i]['name']+'</a></h6>\n' +
+                                    '<h5>US$ '+products[i]['price']+'</h5>\n' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>'
+                    );
+                }
+            }
+        });
+    }
+</script>
 {% block js %}{% endblock %}
 </body>
 

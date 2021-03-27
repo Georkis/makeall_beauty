@@ -7,6 +7,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProductRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,13 +30,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      itemOperations={
  *         "get"
  *     },
- *     paginationItemsPerPage=1
+ *     paginationItemsPerPage=8
  * )
  *
  * @ApiFilter(SearchFilter::class, properties={"name":"partial","categoryProduct":"partial"})
  * @ApiFilter(BooleanFilter::class, properties={"public":"exact"})
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @UniqueEntity(fields={"url"})
+ * @UniqueEntity(fields={"slug"})
  */
 class Product
 {
@@ -43,12 +45,12 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"producto"})
+     * @Groups({"producto","buscador"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Groups({"producto","buscador"})
      */
@@ -117,6 +119,12 @@ class Product
      */
     private $likeCount;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"producto","buscador"})
+     */
+    private $slug;
+
     public function __toString(): ?string
     {
         return (string)$this->name;
@@ -141,6 +149,7 @@ class Product
     public function setName(string $name): self
     {
         $this->name = $name;
+        $this->slug = Slugify::create()->slugify($name);
 
         return $this;
     }
@@ -288,6 +297,18 @@ class Product
     public function setLikeCount(?int $likeCount): self
     {
         $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

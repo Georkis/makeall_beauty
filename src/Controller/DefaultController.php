@@ -85,7 +85,7 @@ class DefaultController extends AbstractController
 
     /**
      * @param Product $product
-     * @Route("/producto/{id}", name="default_product")
+     * @Route("/producto/{slug}", name="default_product")
      */
     public function product(Product $product)
     {

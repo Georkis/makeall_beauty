@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProductRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,21 +17,27 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     collectionOperations={
+ *      collectionOperations={
  *          "get" = {
- *              "path" = "/productos",
- *              "normalizationContext"={"groups"={"producto:read"}}
+ *              "normalization_context"={"groups"="producto"}
+ *          },
+ *          "buscador" = {
+ *              "path" = "/buscador",
+ *              "method" = "get",
+ *              "normalization_context"={"groups"="buscador"},
  *          }
  *     },
- *     itemOperations={
- *          "get" = {
- *              "path" = "/producto/{id}"
- *          }
+ *      itemOperations={
+ *         "get"
  *     },
- *     paginationItemsPerPage=10
+ *     paginationItemsPerPage=8
  * )
+ *
+ * @ApiFilter(SearchFilter::class, properties={"name":"partial","categoryProduct":"partial"})
+ * @ApiFilter(BooleanFilter::class, properties={"public":"exact"})
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @UniqueEntity(fields={"url"})
+ * @UniqueEntity(fields={"slug"})
  */
 class Product
 {
@@ -35,13 +45,14 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"producto","buscador"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $name;
 
@@ -49,7 +60,7 @@ class Product
      * @ORM\ManyToOne(targetEntity=CategoryProduct::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $categoryProduct;
 
@@ -67,7 +78,7 @@ class Product
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
-     * @Groups("producto:read")
+     * @Groups({"producto"})
      */
     private $description;
 
@@ -75,28 +86,44 @@ class Product
      * @ORM\Column(type="string", length=150, unique=true)
      * @Assert\NotBlank()
      * @Assert\Url()
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $url;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
-     * @Groups("producto:read")
+     * @Groups({"producto","buscador"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("producto:read")
+     * @Groups({"producto"})
      */
     private $public;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $visita;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $likeCount;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"producto","buscador"})
+     */
+    private $slug;
 
     public function __toString(): ?string
     {
@@ -122,6 +149,7 @@ class Product
     public function setName(string $name): self
     {
         $this->name = $name;
+        $this->slug = Slugify::create()->slugify($name);
 
         return $this;
     }
@@ -247,5 +275,41 @@ class Product
     public function count()
     {
         return $this->comments->count();
+    }
+
+    public function getVisita(): ?int
+    {
+        return $this->visita;
+    }
+
+    public function setVisita(?int $visita): self
+    {
+        $this->visita = $visita;
+
+        return $this;
+    }
+
+    public function getLikeCount(): ?int
+    {
+        return $this->likeCount;
+    }
+
+    public function setLikeCount(?int $likeCount): self
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

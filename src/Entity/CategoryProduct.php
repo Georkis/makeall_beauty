@@ -2,13 +2,30 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CategoryProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     collectionOperations={
+ *          "get" = {
+ *              "normalization_context" = {"groups"="categoryProducto:read"}
+ *          }
+ *     },
+ *     itemOperations={
+ *          "get" = {
+ *
+ *          }
+ *     }
+ * )
+ * @ApiFilter(BooleanFilter::class, properties={"active":"exact"})
  * @ORM\Entity(repositoryClass=CategoryProductRepository::class)
  */
 class CategoryProduct
@@ -17,12 +34,14 @@ class CategoryProduct
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"categoryProducto:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank()
+     * @Groups({"producto","buscador","categoryProducto:read"})
      */
     private $name;
 
@@ -38,6 +57,7 @@ class CategoryProduct
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"categoryProducto:read"})
      */
     private $image;
 

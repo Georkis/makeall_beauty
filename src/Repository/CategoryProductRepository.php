@@ -19,6 +19,15 @@ class CategoryProductRepository extends ServiceEntityRepository
         parent::__construct($registry, CategoryProduct::class);
     }
 
+    public function findCategoryProduct()
+    {
+        return $this->createQueryBuilder('cp')
+            ->join('cp.products', 'p')
+            ->where('cp.active = 1')
+            ->orderBy('cp.name', 'ASC')
+            ->getQuery()->getResult();
+    }
+
     // /**
     //  * @return CategoryProduct[] Returns an array of CategoryProduct objects
     //  */

@@ -26,10 +26,19 @@ services:
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%app.images%'
     App\Service\ImageCropUpload:
         arguments:
             $imagesPath: '%app.images%'
             $flashBag: '@session.flash_bag'
 
+    listener.maintenance:
+        class: App\EventListener\MttoListener
+        arguments:
+            $tokenStorage: "@security.token_storage"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

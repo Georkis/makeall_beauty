@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tag index{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.dataTables.min.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="page-header">
+        <h4 class="page-title">Tag</h4>
+        <ul class="breadcrumbs">
+            <li class="nav-home">
+                <a href="{{ path('dashboard') }}">
+                    <i class="flaticon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">Listado</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-tools float-right">
+                        <a href="{{ path('tag_new') }}" class="btn btn-secondary btn-xs"><i
+                                    class="fa fa-plus-circle"></i> Nuevo</a>
+                    </div>
+                </div>
+                <div class="card-body table-responsive">
+
+                    <table class="table table-striped" id="basic-datatables">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Active</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for tag in tags %}
+                            <tr>
+                                <td>{{ tag.id }}</td>
+                                <td>{{ tag.name }}</td>
+                                <td>
+                                    <a onclick="changePublic(this); return false;" href="{{ path('tag_active', {'id': tag.id}) }}">
+                                        {% if tag.active %}
+                                            <i class="far fa-check-square fa-lg"></i>
+                                        {% else %}
+                                            <i class="far fa-square fa-lg text-danger"></i>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('tag_show', {'id': tag.id}) }}" class="text-secondary"><i
+                                                class="fa fa-list fa-lg"></i></a>
+                                    <a href="{{ path('tag_edit', {'id': tag.id}) }}" class="text-warning"><i
+                                                class="fa fa-edit ml-2 fa-lg"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">No hay registro que mostrar</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.responsive.min.js') }}"></script>
+    <script>
+        $('#basic-datatables').DataTable({
+            "language": {
+                "paginate": {
+                    "first": "Primera pagina",
+                    "last": "Última pagina",
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                },
+                "zeroRecords": "No hay registro que mostrar",
+                "emptyTable": "No hay datos",
+                "info": "Mostrar pagina _PAGE_ of _PAGES_",
+                "infoEmpty": "No hay entradas que mostrar",
+                "loadingRecords": "Espere por favor...",
+                "search": "Buscar:",
+                "zeroRecords": "No hay registro que mostrar",
+                "sLengthMenu": "Mostrar _MENU_ entradas",
+                "sInfoFiltered": "(filtrado de _MAX_ total de entradas)",
+            },
+            "responsive": true,
+        });
+
+        function changePublic(element) {
+            const url = element.href;
+            var statusChange = $(element).attr('disabled');
+
+            if (statusChange == 'disabled'){
+                return;
+            }
+
+            $.ajax({
+                url: url,
+                beforeSend: function () {
+                    $(element).html('<i class="fa fa-spinner fa-pulse text-success"></i>');
+                    $(element).attr('disabled','disabled');
+                }
+            }).done(function (response) {
+                $(element).removeAttr('disabled');
+                if (response.public == 1){
+                    $(element).html('<i class="far fa-check-square fa-lg"></i>');
+                }else {
+                    $(element).html('<i class="far fa-square text-danger fa-lg"></i>');
+                }
+            });
+        }
+    </script>
+{% endblock %}

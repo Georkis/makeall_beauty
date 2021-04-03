@@ -36,9 +36,9 @@
                     <table class="table table-striped" id="basic-datatables">
                         <thead>
                         <tr>
-                            <th>Id</th>
+                            <th>#</th>
                             <th>Name</th>
-                            <th>Url</th>
+                            <th>Categoría</th>
                             <th>Price</th>
                             <th>Image</th>
                             <th>Public</th>
@@ -48,10 +48,10 @@
                         <tbody>
                         {% for product in products %}
                             <tr>
-                                <td>{{ product.id }}</td>
+                                <td>{{ loop.index }}</td>
                                 <td>{{ product.name }}</td>
                                 <td>
-                                    <a href="{{ product.url }}" target="_blank" class="btn btn-dark btn-lg">Visitar</a>
+                                    {{ product.categoryProduct }}
                                 </td>
                                 <td>{{ product.price }}</td>
                                 <td>
@@ -73,20 +73,11 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-dark btn-xs dropdown-toggle"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="d-none"><i class="fa fa-spinner fa-pulse"></i></span>
-                                            Seleccionar
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a href="{{ path('product_show', {'id': product.id}) }}"
-                                               class="dropdown-item"><i class="fa fa-list"></i> Detalle</a>
-                                            <a href="{{ path('product_edit', {'id': product.id}) }}"
-                                               class="dropdown-item"><i class="fa fa-edit"></i> Editar</a>
-                                            <!--                            <div class="dropdown-divider"></div>-->
-                                        </div>
-                                    </div>
+                                    <a title="Subir vistas" href="{{ path('producto_view_images_new', {'id': product.id}) }}" class="text-danger ml-2"><i class="fa fa-upload fa-lg"></i></a>
+                                    <a title="Detalle" href="{{ path('product_show', {'id': product.id}) }}"
+                                       class="text-secondary ml-2"><i class="fa fa-list fa-lg"></i> </a>
+                                    <a title="Editar" href="{{ path('product_edit', {'id': product.id}) }}"
+                                       class="text-warning ml-2"><i class="fa fa-edit fa-lg"></i> </a>
                                 </td>
                             </tr>
                         {% else %}

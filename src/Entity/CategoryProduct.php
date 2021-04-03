@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CategoryProductRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -46,6 +47,18 @@ class CategoryProduct
     private $name;
 
     /**
+     * @ORM\Column(type="string")
+     * @Groups({"producto","buscador","categoryProducto:read"})
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Groups({"producto","buscador","categoryProducto:read"})
+     */
+    private $lead;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $active;
@@ -61,10 +74,16 @@ class CategoryProduct
      */
     private $image;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Blog::class, mappedBy="category")
+     */
+    private $blogs;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
         $this->active = false;
+        $this->blogs = new ArrayCollection();
     }
 
     public function __toString(): ?string
@@ -85,6 +104,7 @@ class CategoryProduct
     public function setName(string $name): self
     {
         $this->name = $name;
+        $this->slug = Slugify::create()->slugify($name);
 
         return $this;
     }
@@ -139,6 +159,68 @@ class CategoryProduct
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLead()
+    {
+        return $this->lead;
+    }
+
+    /**
+     * @param mixed $lead
+     */
+    public function setLead($lead): void
+    {
+        $this->lead = $lead;
+    }
+
+    /**
+     * @return Collection|Blog[]
+     */
+    public function getBlogs(): Collection
+    {
+        return $this->blogs;
+    }
+
+    public function addBlog(Blog $blog): self
+    {
+        if (!$this->blogs->contains($blog)) {
+            $this->blogs[] = $blog;
+            $blog->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlog(Blog $blog): self
+    {
+        if ($this->blogs->removeElement($blog)) {
+            // set the owning side to null (unless already changed)
+            if ($blog->getCategory() === $this) {
+                $blog->setCategory(null);
+            }
+        }
 
         return $this;
     }

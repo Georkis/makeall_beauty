@@ -2,3 +2,4 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes:
         - 'form/bootstrap_4_layout.html.twig'
+        - '@TetranzSelect2Entity/Form/fields.html.twig'

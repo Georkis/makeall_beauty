@@ -1,0 +1,931 @@
+@import '../custom/theme-variables';
+@import '../custom/mixins';
+
+/* ------------------------------------------------
+  Project:   Konster - Construction Building HTML5 Template
+  Author:    ThemeHt
+------------------------------------------------ */
+
+/* ------------------------
+    Table of Contents
+
+  1. Section Title
+  2. Button
+  3. Accordion
+  4. Social Icons
+  5. Team
+  6. Tab
+  7. Counter
+  8. Blog - Post
+  9. Testimonials
+  10. Featured Box
+  11. Price Table   
+  12. Progress Bar
+  13. Project
+
+
+/* ------------------------
+    Section Title
+------------------------*/
+
+.section-title {
+  margin-bottom: 40px;
+  position: relative;
+
+  p {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+}
+
+.dark-bg .title, .theme-bg .title, .dark-bg .title span {
+  color: $white;
+}
+
+.theme-bg {
+  .title span, .section-title h6 {
+    color: $white;
+  }
+}
+
+.section-title {
+  h6 {}
+
+  h2 {
+    margin-bottom: 15px;
+  }
+
+  h6 {
+    position: relative;
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    @include animation(skew 3s infinite);
+    @include animation-direction(alternate);
+    @include transform(skew(20deg));
+  }
+}
+
+.dark-bg .title {
+  &.text-black {
+    color: $text-dark;
+  }
+
+  span.text-theme {
+    color: $primary;
+  }
+}
+
+/* ------------------------
+    Button
+------------------------*/
+
+.btn {
+  color: $primary2;
+  overflow: hidden;
+  position: relative;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-weight: 600;
+}
+.btn-secondary {
+    background: #ccc;
+    &:hover {
+        color: white;
+        background: #6c084d;
+    }
+}
+
+.btn-secondary-active {
+    color: white;
+    background: #6c084d;
+}
+
+.btn-sm {
+  padding: 10px 25px;
+  color: $text-dark;
+}
+
+.btn {
+  .btn.focus, &:focus {
+    box-shadow: none;
+    color: $white;
+  }
+
+  + .btn {
+    margin-left: 15px;
+  }
+
+  &.btn-theme {
+    background: $primary;
+    color: $white;
+
+    &:hover {
+      background: $primary2;
+      color: $white;
+    }
+  }
+
+  &.btn-white {
+    background: $white;
+    color: $text-dark;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  &.btn-dark {
+    background: $bg-dark;
+    color: $white;
+
+    &:hover {
+      background: $primary;
+      color: $white;
+    }
+  }
+
+  &.btn-outline {
+    border: 1px solid $text-dark;
+
+    &:hover {
+      border-color: $primary;
+      background: $primary;
+    }
+
+    &.white {
+      border: 1px solid $white;
+      color: $white;
+
+      &:hover {
+        border-color: $primary;
+        background: $primary;
+      }
+    }
+  }
+}
+
+/* ------------------------
+    Accordion
+------------------------*/
+
+.accordion .accordion-button {
+  font-size: 16px;
+  color: $text-dark;
+  padding: 0.2rem 1.25rem;
+}
+
+.accordion-button {
+  &:not(.collapsed) {
+    background: none;
+    color: $primary;
+  }
+
+  &:focus {
+    box-shadow: none;
+    border-color: $primary;
+  }
+}
+
+/* ------------------------
+    Social Icons
+------------------------*/
+
+.social-icons {
+  ul {
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+  }
+
+  li {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0 8px 0 0;
+
+    a {
+      background: $bg-light;
+      border-radius: .25rem;
+      display: inline-block;
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      font-size: 14px;
+      text-align: center;
+      margin: 0;
+      border: 0;
+      color: $text-dark;
+      overflow: hidden;
+    }
+
+    &:hover a {
+      background: $primary;
+      color: $white;
+    }
+  }
+}
+
+/* ------------------------
+    Team
+------------------------*/
+
+.team-member {
+  position: relative;
+
+  .team-images {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .team-description h5 {
+    margin-bottom: 5px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: $text-dark;
+
+    a:hover {
+      color: $primary;
+    }
+  }
+}
+
+.team-social-icon li {
+  margin: 0;
+  display: inline-block;
+  position: relative;
+
+  a {
+    background: $bg-light;
+    border-radius: 50%;
+    font-size: 18px;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    color: $text-dark;
+    display: inline-block;
+    text-align: center;
+
+    &:hover {
+      background: $primary;
+      color: $white;
+    }
+  }
+}
+
+.team-member img {
+  width: 100%;
+}
+
+/* ------------------------
+    Tab
+------------------------*/
+
+.tab .nav-tabs {
+  border: none;
+
+  .nav-link {
+    text-align: center;
+    font-weight: 600;
+    color: $text-dark;
+    position: relative;
+    padding: 15px 20px;
+    background: $white;
+
+    &.active, &:hover {
+      background: $primary;
+      color: $white;
+    }
+  }
+
+  &.active > a:focus, > a:hover {
+    background: $primary;
+    color: $white;
+  }
+}
+
+/* ------------------------
+    Counter
+------------------------*/
+
+.counter {
+  position: relative;
+  z-index: 9;
+  border-radius: .25rem;
+  padding: 1.5rem;
+
+  span {
+    font-size: 50px;
+    font-weight: 500;
+    line-height: 50px;
+    display: inline-block;
+    margin: 0 0 10px;
+  }
+
+  h6 {
+    display: block;
+    color: $text-dark;
+    font-size: 16px;
+    position: relative;
+    margin: 0;
+  }
+}
+
+.counter-icon i {
+  font-size: 50px;
+  line-height: 50px;
+  display: inline-block;
+  font-weight: normal;
+  color: $primary2;
+  margin-bottom: 20px;
+}
+
+/* ------------------------
+    Blog - Post
+------------------------*/
+
+.post-image:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $primary2;
+  @include transform(scale(0));
+  opacity: 0;
+  top: 0;
+  border-radius: 0.25rem;
+}
+
+.post:hover .post-image:after {
+  opacity: 0.95;
+  @include transform(scale(1));
+}
+
+.post-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 40px;
+  opacity: 0;
+  z-index: 9;
+
+  &:hover i {
+    @include transform(rotate(-35deg));
+  }
+}
+
+.post {
+  &:hover .post-link {
+    opacity: 1;
+  }
+
+  .post-desc h4 {
+    margin: 0;
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+}
+
+.post-meta ul li {
+  font-weight: normal;
+  display: inline-block;
+  list-style-type: none;
+  position: relative;
+  font-size: 14px;
+
+  i {
+    font-size: 16px;
+  }
+
+  + li {
+    padding-left: .5rem;
+
+    &:before {
+      display: inline-block;
+      padding-right: .5rem;
+      color: $primary2;
+      content: "-";
+    }
+  }
+}
+
+.post.style-2 {
+  .post-image {
+    &:after {
+      display: none;
+    }
+
+    &:before {
+      display: block;
+      background: $bg-dark;
+      content: "";
+      opacity: 0.5;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      @include transition(all 0.5s ease-in-out);
+      z-index: 1;
+    }
+  }
+
+  .post-desc {
+    position: absolute;
+    bottom: 0;
+    padding: 30px;
+    left: 1.5rem;
+    z-index: 9;
+  }
+
+  .post-meta ul li {
+    color: $white;
+    @include transition(all 0.5s ease-in-out);
+  }
+
+  .post-desc {
+    h4, p {
+      color: $white;
+      @include transition(all 0.5s ease-in-out);
+    }
+  }
+
+  &:hover .post-image:before, &.active .post-image:before {
+    background: $white;
+    opacity: 1;
+  }
+
+  &:hover {
+    .post-meta ul li {
+      color: $text-dark;
+    }
+
+    .post-desc {
+      h4, p {
+        color: $text-dark;
+      }
+    }
+  }
+
+  &.active {
+    .post-meta ul li {
+      color: $text-dark;
+    }
+
+    .post-desc {
+      h4, p {
+        color: $text-dark;
+      }
+    }
+  }
+}
+
+/*** Blog Single ***/
+
+.pagination {
+  display: inline-block;
+
+  > li {
+    margin: 0 6px;
+    display: inline-block;
+
+    > a {
+      color: $text-dark;
+      font-weight: 600;
+      border-color: $border-light;
+    }
+
+    &.active .page-link {
+      box-shadow: none;
+      background: $primary;
+      color: $white;
+      border-color: $primary;
+    }
+  }
+}
+
+.page-link {
+  &:hover, &:focus {
+    box-shadow: none;
+    background: $primary;
+    color: $white;
+    border-color: $primary;
+  }
+}
+
+.widget {
+  border: 1px dashed $border-light;
+}
+
+/*widget-tags*/
+
+.widget-tags a {
+  border: 1px solid $border-light;
+  color: $text-dark;
+  padding: 10px 15px;
+
+  &:hover {
+    background: $primary;
+    color: $white;
+  }
+}
+
+/* ------------------------
+    Testimonials
+------------------------*/
+
+.testimonial {
+  position: relative;
+}
+
+.testimonial-content p {
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.testimonial .testimonial-caption h5 {
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.testimonial-img i {
+  background: $primary;
+  padding: 15px;
+  border-radius: .25rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 80px;
+  line-height: 1;
+  color: $white;
+}
+
+/* ------------------------
+    Featured Box
+------------------------*/
+
+.featured-item {
+  position: relative;
+  border-radius: .25rem;
+  overflow: hidden;
+  z-index: 9;
+  background: $white;
+}
+
+.owl-carousel .featured-item {
+  margin: 30px 0;
+}
+
+.featured-item .featured-icon i {
+  position: relative;
+  z-index: 9;
+  font-size: 70px;
+  line-height: 70px;
+  text-align: center;
+  color: $primary2;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.featured-desc p {
+  font-size: 16px;
+}
+
+.featured-item {
+  .btn-link {
+    font-size: 17px;
+    color: $primary;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  &:hover {
+    h4, p {
+      color: $white;
+    }
+  }
+
+  &.active {
+    h4, p {
+      color: $white;
+    }
+  }
+
+  &:hover .featured-icon i, &.active .featured-icon i {
+    color: $primary;
+  }
+
+  .featured-icon i:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 100px solid $primary;
+    border-left: 100px solid transparent;
+    @include animation(headShake 1.3s infinite running);
+  }
+
+  &:hover .featured-icon i:after, &.active .featured-icon i:after {
+    border-bottom-color: $white;
+  }
+
+  .bg-layer {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0;
+    background-size: cover;
+    @include transform(scale(0.5, 1));
+    @include transition(all 600ms ease);
+    z-index: -1;
+  }
+
+  &:hover .bg-layer, &.active .bg-layer {
+    @include transform(scale(1, 1));
+    opacity: 1;
+  }
+
+  .bg-layer:before {
+    position: absolute;
+    content: '';
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    opacity: 0.95;
+    background: $primary2;
+  }
+
+  &.style-2 {
+    &:hover, &.active {
+      background: $primary2;
+      z-index: 99;
+    }
+
+    .featured-desc a {
+      background: $primary;
+      color: $text-dark;
+      font-size: 24px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+
+    &:hover .featured-desc a, &.active .featured-desc a {
+      background: $white;
+      color: $text-dark;
+    }
+  }
+}
+
+/* ------------------------
+    Price Table
+------------------------*/
+
+.price-table {
+  padding: 50px 30px;
+  z-index: 9;
+}
+
+.price-value h2 {
+  color: $primary2;
+  margin-bottom: 0;
+
+  span {
+    font-size: 18px;
+    line-height: 18px;
+    color: #686c77;
+    font-weight: normal;
+  }
+}
+
+.price-list ul li {
+  position: relative;
+  display: block;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.text-white .price-list ul li {
+  color: $text-rgba;
+}
+
+.price-list {
+  ul li:last-child {
+    margin-right: 0;
+  }
+
+  li i {
+    color: $text-dark;
+    line-height: 20px;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    background: $bg-light;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+}
+
+/* ------------------------
+    Progress Bar
+------------------------*/
+
+.ht-progress-bar {
+  h4 {
+    color: $text-dark;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .progress {
+    height: 4px;
+    background: $bg-light;
+    overflow: visible;
+    align-items: center;
+    position: relative;
+  }
+}
+
+.light-bg .ht-progress-bar .progress {
+  background: $white;
+}
+
+.ht-progress-bar {
+  .progress .progress-bar {
+    height: 4px;
+    background-color: $primary;
+    overflow: visible;
+    position: relative;
+  }
+
+  .progress-parcent {
+    position: absolute;
+    right: 0;
+    top: -35px;
+    color: $primary2;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+/* ------------------------
+Project
+------------------------*/
+
+.project-item {
+  &:before {
+    display: block;
+    background: $primary2;
+    content: "";
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include transition(all 0.5s ease-in-out);
+    z-index: 1;
+  }
+
+  &:hover:before {
+    opacity: 0.92;
+    visibility: visible;
+  }
+}
+
+.project-title {
+  width: 100%;
+  padding: 30px;
+  @include transform(translate3d(0, 100%, 0));
+  opacity: 0;
+  visibility: hidden;
+  @include transition(all 0.5s ease-in-out);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.project-item {
+  &:hover .project-title {
+    opacity: 1;
+    visibility: visible;
+    @include transform(translate3d(0, 0, 0));
+  }
+
+  h4 {
+    font-size: 22px;
+  }
+}
+
+.popup-img {
+  display: block;
+  font-size: 30px;
+  color: $text-dark;
+  background: $white;
+  padding: 10px;
+  border-radius: .25rem;
+  opacity: 0;
+  visibility: hidden;
+  @include transform(translate3d(100%, 0, 0));
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 500;
+}
+
+.project-item {
+  &:hover {
+    .popup-img {
+      opacity: 1;
+      visibility: visible;
+      @include transform(translate3d(0, 0, 0));
+    }
+
+    img {
+      @include transform(scale(1.05));
+    }
+  }
+
+  &.style-2 {
+    .project-title {
+      background: $white;
+      width: 100%;
+      padding: 20px;
+      -webkit-transform: inherit;
+      -ms-transform: inherit;
+      transform: inherit;
+      opacity: 1;
+      visibility: visible;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    &:after {
+      opacity: 0;
+      @include transform(translate3d(0, -100%, 0));
+      @include transition(all 0.4s ease-in-out 0s);
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-top: 100px solid $primary;
+      border-right: 100px solid transparent;
+    }
+  }
+}
+
+.popup-link {
+  display: block;
+  font-size: 40px;
+  color: $white;
+  opacity: 0;
+  visibility: hidden;
+  @include transform(translate3d(0, -100%, 0));
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 500;
+
+  &:hover {
+    color: $primary2;
+  }
+}
+
+.project-item {
+  &:hover .popup-link, &.style-2:hover:after {
+    opacity: 1;
+    visibility: visible;
+    @include transform(translate3d(0, 0, 0));
+  }
+}

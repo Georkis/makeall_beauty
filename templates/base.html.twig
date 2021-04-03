@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>{% block title %}{% endblock %} - CuPay</title>
+    <title>{% block title %}{% endblock %} - MakeAllBeauty</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="{{ asset('images/favicon.jpeg') }}" type="image/x-icon"/>
-
     <!-- Fonts and icons -->
     <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script>
@@ -20,11 +19,13 @@
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/atlantis.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 {#    <link rel="stylesheet" href="../../assets/css/demo.css">#}
     <!-- CSS Just for demo purpose, don't include it in your project -->
     {% block css %}{% endblock %}
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 </head>
 <body data-background-color="dark">
 <div class="wrapper">
@@ -408,7 +409,7 @@
 
 
 <!-- Chart JS -->
-<script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>
+{#<script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>#}
 
 <!-- jQuery Sparkline -->
 <script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
@@ -433,35 +434,9 @@
 <!-- Atlantis DEMO methods, don't include it in your project! -->
 <script src="{{ asset('assets/js/setting-demo.js') }}"></script>
 <script src="{{ asset('assets/js/functions.js') }}"></script>
+<script src="{{ asset('js/bs-custom-file-input.min.js') }}"></script>
 {#<script src="{{ asset('assets/js/demo.js') }}"></script>#}
 <script>
-    $('#lineChart').sparkline([102,109,120,99,110,105,115], {
-        type: 'line',
-        height: '70',
-        width: '100%',
-        lineWidth: '2',
-        lineColor: 'rgba(255, 255, 255, .5)',
-        fillColor: 'rgba(255, 255, 255, .15)'
-    });
-
-    $('#lineChart2').sparkline([99,125,122,105,110,124,115], {
-        type: 'line',
-        height: '70',
-        width: '100%',
-        lineWidth: '2',
-        lineColor: 'rgba(255, 255, 255, .5)',
-        fillColor: 'rgba(255, 255, 255, .15)'
-    });
-
-    $('#lineChart3').sparkline([105,103,123,100,95,105,115], {
-        type: 'line',
-        height: '70',
-        width: '100%',
-        lineWidth: '2',
-        lineColor: 'rgba(255, 255, 255, .5)',
-        fillColor: 'rgba(255, 255, 255, .15)'
-    });
-
     $(function() {
         {% for tipo, mensajes in app.session.flashbag.all() %}
             {% for mensaje in mensajes %}
@@ -507,6 +482,17 @@
 
 
 </script>
+<script>
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    $('.custom-file-label').text('Seleccionar archivo');
+</script>
+<script src="{{ asset('plugins/select2/js/select2.full.js') }}"></script>
+<script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
 {% block js %}{% endblock %}
 </body>
 </html>

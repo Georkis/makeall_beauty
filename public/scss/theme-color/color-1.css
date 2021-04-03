@@ -1,0 +1,200 @@
+/* ------------------------------------------------
+  Project:   Sassaht - SaaS, Startup & WebApp Prebuilt Template
+  Author:    ThemeHt
+
+  NOTE: This is Color customizer stylesheet of template.
+------------------------------------------------ */
+/* ------------------------
+    General
+------------------------*/
+::-moz-selection {
+  background: #03d665;
+  color: #ffffff;
+  text-shadow: none;
+  background: #03d665;
+  color: #ffffff;
+  text-shadow: none; }
+
+::selection {
+  background: #03d665;
+  color: #ffffff;
+  text-shadow: none; }
+
+/* ------------------------
+    Background Color
+------------------------*/
+.theme-bg, .btn.btn-theme, .nav-link.dropdown-toggle:hover::after, .header-2 #header-wrap.fixed-header {
+  background-color: #03d665; }
+
+.owl-carousel .owl-dots .owl-dot:hover span, .owl-carousel .owl-dots .owl-dot.active span {
+  background-color: #03d665; }
+.owl-carousel .owl-nav button.owl-prev:hover, .owl-carousel .owl-nav button.owl-next:hover {
+  background-color: #03d665; }
+
+.tab .nav-tabs .nav-link.active, .tab .nav-tabs .nav-link:hover {
+  background-color: #03d665; }
+.tab .nav-tabs.active > a:focus, .tab .nav-tabs > a:hover {
+  background-color: #03d665; }
+
+.scroll-top a, .pagination > li.active .page-link {
+  background-color: #03d665; }
+
+.page-link:hover, .page-link:focus {
+  background-color: #03d665; }
+
+.video-btn .play-btn, .left-bdr, .right-bdr {
+  background-color: #03d665; }
+
+.price-table.style-2:hover, .price-table.style-2.active {
+  background-color: #03d665; }
+.price-table.style-3:hover, .price-table.style-3.active {
+  background-color: #03d665; }
+
+.featured-item.style-4:hover, [data-overlay].theme-overlay:before, .widget .widget-tags li a:hover, .post-tags li a:hover {
+  background-color: #03d665; }
+
+#sidebar ul li.active > a, #sidebar a[aria-expanded="true"], #sidebar ul li:hover > a {
+  background-color: #03d665; }
+
+.bd-color-1 {
+  stroke: #03d665; }
+
+.bd-color-2 {
+  stroke: #7329c2; }
+
+/* ------------------------
+    Color
+------------------------*/
+a, button, input {
+  color: #03d665; }
+
+a:focus, a:hover {
+  color: #03d665; }
+
+.text-theme, .nav-item.dropdown .dropdown-menu a:hover {
+  color: #03d665; }
+
+.navbar-nav .nav-link:hover, .navbar-nav .nav-item .nav-link.active {
+  color: #03d665; }
+
+h1 span {
+  color: #03d665; }
+
+.breadcrumb-item.active, .breadcrumb-item a:hover {
+  color: #03d665; }
+
+.featured-item .featured-icon i, .list-icon li i, .price-value h2, .price-list li i, .price-table.style-2 .price-title, .post-meta ul li i, .post .post-desc h4 a:hover, .media-icon li a:hover {
+  color: #03d665; }
+
+.scroll-top a:hover, .scroll-top a:focus {
+  color: #03d665; }
+
+.step-icon, .testimonial .testimonial-caption h5 {
+  color: #03d665; }
+
+.counter.style-2 span, .counter.style-3 span {
+  color: #03d665; }
+
+.team-member .team-description h5, .job-list-icon i, .job-list-info i {
+  color: #03d665; }
+
+.accordion .card.active a, .accordion .card a:hover {
+  color: #03d665; }
+
+.contact-media h5, .contact-media i {
+  color: #03d665; }
+
+.color-customizer a.opener, .widget-title, .widget-about h4, .widget .widget-categories a span, .comment-date, .comment-reply a:hover {
+  color: #03d665; }
+
+.widget .widget-categories li a:hover, .widget .recent-post-desc a:hover {
+  color: #03d665; }
+
+.widget-searchbox .search-btn {
+  color: #03d665; }
+
+/* ------------------------
+    2nd background Color
+------------------------*/
+.dark-bg .featured-item.style-3:hover, .btn-iconic::before {
+  background-color: #7329c2; }
+
+.btn::before, .btn::after {
+  background-color: #7329c2; }
+.btn span::before, .btn span::after {
+  background-color: #7329c2; }
+
+.featured-item.style-3:hover {
+  background-color: #7329c2; }
+
+/* ------------------------
+    2nd Color
+------------------------*/
+.testimonial .testimonial-caption label, .header-call a:hover {
+  color: #7329c2; }
+
+/* ------------------------
+    RGB background Color
+------------------------*/
+.featured-item.style-4 .featured-icon::before {
+  background: rgba(3, 214, 101, 0.2); }
+.featured-item.style-4 .featured-icon::after {
+  border-color: rgba(3, 214, 101, 0.05); }
+
+.post-meta ul li, .job-search .form-control, .job-list-time span, .text-bg {
+  background: rgba(3, 214, 101, 0.1); }
+
+.testimonial.style-1 .testimonial-content p, .testimonial.style-2::before {
+  background: rgba(3, 214, 101, 0.1); }
+
+.post-categories li {
+  background: rgba(115, 41, 194, 0.1); }
+
+/* ------------------------
+    Grediant Color
+------------------------*/
+[data-overlay].grediant-overlay:before, .grediant-bg, .featured-item.style-5 .featured-icon:before, .team-link a, .post.style-4 .post-image::before, .hero-shape1, .hero-shape2, .hero-shape4, .hero-shape5, .hero-shape6 {
+  background: #03d665;
+  background: linear-gradient(58deg, #03d665 35%, #7329c2 100%); }
+
+.testimonial.style-3 .testimonial-content {
+  background: #03d665;
+  background: linear-gradient(180deg, #03d665 25%, #7329c2 100%); }
+
+.team-member.style-4 {
+  border-image: linear-gradient(45deg, #03d665, #7329c2) 1; }
+
+/* ------------------------
+    border Color
+------------------------*/
+.round-anim, .image-anim::before {
+  border-color: rgba(3, 214, 101, 0.1); }
+
+.work-process .arrow .curve {
+  border-color: transparent transparent transparent #03d665; }
+.work-process .arrow .point::before, .work-process .arrow .point::after {
+  border-color: #7329c2; }
+
+.job-list-icon i, .form-inline .form-control {
+  border-color: #7329c2; }
+
+.form-control {
+  border-bottom-color: #7329c2; }
+
+/* ------------------------
+    Box Shadow
+------------------------*/
+.price-table.style-4 .price-value h2::before {
+  box-shadow: 5px 5px 8px #03d665; }
+
+@media (max-width: 992px) {
+  .navbar-toggler span {
+    background-color: #03d665; }
+
+  .navbar-nav .nav-item.show .nav-link, .navbar-nav .nav-item.show .dropdown-submenu.show > a {
+    color: #03d665; }
+
+  .header-3 .navbar-nav .nav-link:hover, .header-3 .navbar-nav .nav-item .nav-link.active, .header-3 .navbar-nav .nav-link:hover::before, .header-3 .navbar-nav .nav-item .nav-link.active::before, .header-3 .navbar-nav .nav-link:focus::before {
+    color: #03d665; } }
+
+/*# sourceMappingURL=color-1.css.map */

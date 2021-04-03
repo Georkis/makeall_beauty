@@ -1,40 +1,45 @@
-{% extends "frontend.html.twig" %}
+{% extends "frontend_ui.html.twig" %}
 
 {% block title %}{{ product }}{% endblock %}
 
-{% block body_estrecho %}
-    <div class="row">
-        <div class="col-lg-3">
-            <div id="img-container">
-                <img src="{{ asset('images/' ~ product.image) }}" alt="{{ product }}" class="img-fluid thumbnail">
-                <p class="text-center"><small>Pasa el mouse encima de la imagen para aplicar zoom</small></p>
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6" id="img-container">
+                    <ul id="imageGallery">
+                        <li data-thumb="{{ asset('images/' ~ product.image) }}" data-src="{{ asset('images/' ~ product.image) }}">
+                            <div id="img-container">
+                            <img class="img-fluid w-100" src="{{ asset('images/' ~ product.image) }}" alt="" />
+                            </div>
+                        </li>
+                    {% for v in views %}
+                        <li data-thumb="{{ asset('images/' ~ v.image) }}" data-src="{{ asset('images/' ~ v.image) }}">
+                            <img class="img-fluid w-100" src="{{ asset('images/' ~ v.image) }}" alt="{{ product }}" />
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-6 mt-5 mt-md-0">
+                    <div class="product-details">
+                        <h3>
+                            {{ product }}
+                        </h3>
+                        <div class="product-price my-2"> <span class="d-block">US $ {{ product.price | number_format(2, '.',',') }}</span></div>
+                    </span>
+
+                        <ul class="list-unstyled my-4">
+                            <li><span class="text-black">Me gusta <i class="las la-heart text-danger"></i></span> {{ product.likeCount }}</li>
+                            <li><span class="text-black"> Categoría :</span> {{ product.categoryProduct }}</li>
+                        </ul>
+                        {{ product.description | raw }}
+
+                        <div class="mt-5">
+                            <a class="btn btn-dark" href="{{ product.url }}" target="_blank"><i class="las la-shopping-cart me-2"></i>Ir de compra</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <a href="{{ product.url }}" target="_blank" class="btn btn-warning btn-outline-danger btn-block">Ir a comprar</a>
         </div>
-        <div class="col">
-            <h4>{{ product }}</h4>
-            <hr>
-            {{ product.description | raw }}
-            <p><span class="btn">Precio US${{ product.price }}</span></p>
-        </div>
-    </div>
-{% endblock %}
-{% block js %}
-    <script src="{{ asset('css/js-image-zoom.js') }}"></script>
-    <script>
-        var options1 = {
-            width: 400,
-            zoomWidth: 500,
-            offset: {vertical: 0, horizontal: 10}
-        };
-
-        // If the width and height of the image are not known or to adjust the image to the container of it
-        var options2 = {
-            fillContainer: true,
-            offset: {vertical: 0, horizontal: 10},
-            zoomPosition:"original"
-        };
-        new ImageZoom(document.getElementById("img-container"), options2);
-
-    </script>
+    </section>
 {% endblock %}

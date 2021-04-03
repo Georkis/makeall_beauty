@@ -1,0 +1,432 @@
+@import '../custom/theme-variables';
+@import '../custom/mixins';
+
+/* ------------------------------------------------
+  Project:   Konster - Construction Building HTML5 Template
+  Author:    ThemeHt
+------------------------------------------------ */
+
+/* ------------------------
+    Table of Contents
+
+  1. General
+  2. Transition
+  3. Transform translate
+  4. Box Shadow
+  5. Pre Loader
+  6. Background Overlay
+  7. Scroll to Top
+  8. Header
+  9. Footer
+  10. Page Title
+  11. Flat Icon
+
+ 
+/* ------------------------
+    General
+------------------------*/
+
+a {
+  text-decoration: none !important;
+
+  &:focus {
+    text-decoration: none !important;
+    color: $primary;
+    text-decoration: none !important;
+  }
+
+  &:hover {
+    color: $primary;
+    text-decoration: none !important;
+  }
+
+  outline: medium none !important;
+  color: $primary;
+}
+
+button, input {
+  outline: medium none !important;
+  color: $primary;
+}
+
+*::-moz-selection, ::-moz-selection, ::selection {
+  background: $primary;
+  color: $white;
+  text-shadow: none;
+}
+
+/* ------------------------
+    Transition
+------------------------*/
+
+a, i, .btn, button, img, span, .dropdown-item, .nav-link.dropdown-toggle::after, .social-icons li:hover a, .owl-item {
+  @include transition(all 0.5s ease-in-out 0s);
+}
+
+.featured-item {
+  @include transition(all 0.5s ease-in-out 0s);
+
+  .featured-icon {
+    @include transition(all 0.5s ease-in-out 0s);
+
+    i {
+      @include transition(all 0.5s ease-in-out 0s);
+    }
+  }
+}
+
+.team-member, .post, .post-image:after, .product-link {
+  @include transition(all 0.5s ease-in-out 0s);
+}
+
+
+/* ------------------------
+    Transform translate
+------------------------*/
+
+/*--translate-X--*/
+
+.transform-x {
+  @include transform(translateX(-50%));
+}
+
+/*--translate-Y--*/
+
+.transform-y, .align-center, .image-column {
+  @include transform(translateY(-50%));
+}
+
+/*--translate-XY--*/
+
+.video-btn-pos, .post-link {
+  @include transform(translateX(-50%) translateY(-50%));
+}
+
+/* ------------------------
+    Box Shadow
+------------------------*/
+
+.box-shadow, .dropdown-menu, #header-wrap.fixed-header, .navbar-nav ul, .navbar-brand::before, .featured-item.style-2, .post, .team-member:hover, .price-table {
+  @include box-shadow(20px 20px 100px -15px rgba(7, 7, 7, 0.08));
+}
+
+.owl-carousel .post, .owl-carousel .featured-item {
+  @include box-shadow(0 0 22px 0 rgba(7, 7, 7, 0.08));
+}
+
+/* ------------------------
+    Pre Loader
+------------------------*/
+
+.clear-loader {
+  background-color: $bg-dark;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999999;
+  @include transition(.6s);
+  margin: 0 auto;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  perspective: 300px;
+
+  span {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background: $primary;
+    @include animation(flip 2s linear infinite);
+    @include transform-origin(right bottom);
+
+    &:nth-child(2) {
+    @include animation-delay(0.5s);
+      opacity: 0.5;
+    }
+  }
+}
+
+/* ------------------------
+    Background Overlay
+------------------------*/
+
+[data-overlay] {
+  position: relative;
+  z-index: 0;
+
+  &:before {
+    position: absolute;
+    content: '';
+    background-color: $bg-dark;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  &.white-overlay:before {
+    background-color: $white;
+  }
+
+  &.theme-overlay:before {
+    background-color: $primary;
+  }
+}
+
+[data-overlay="1"]:before {
+  opacity: 0.1;
+}
+
+[data-overlay="2"]:before {
+  opacity: 0.2;
+}
+
+[data-overlay="3"]:before {
+  opacity: 0.3;
+}
+
+[data-overlay="4"]:before {
+  opacity: 0.4;
+}
+
+[data-overlay="5"]:before {
+  opacity: 0.5;
+}
+
+[data-overlay="6"]:before {
+  opacity: 0.6;
+}
+
+[data-overlay="7"]:before {
+  opacity: 0.7;
+}
+
+[data-overlay="8"]:before {
+  opacity: 0.8;
+}
+
+[data-overlay="9"]:before {
+  opacity: 0.9;
+}
+
+[data-overlay="10"]:before {
+  opacity: 1;
+}
+
+[data-overlay="0"]:before {
+  opacity: 0;
+}
+
+.img-overlay[data-overlay]:before {
+  z-index: 1;
+}
+
+/* ------------------------
+    Scroll to Top
+------------------------*/
+
+.scroll-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 600;
+  opacity: 0;
+  visibility: hidden;
+  @include transition(all 0.8s ease-in-out);
+  @include transform(translate3d(0, 200%, 0));
+
+  a {
+    display: block;
+    border-radius: .25rem;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    text-align: center;
+    @include box-shadow(0 0 15px 6px rgba(0, 0, 0, 0.1));
+    @include transition(all 0.3s ease-in-out);
+    font-size: 32px;
+    color: $white;
+    background: $primary;
+
+    &:visited {
+      display: block;
+      border-radius: .25rem;
+      height: 60px;
+      width: 60px;
+      line-height: 60px;
+      text-align: center;
+      @include box-shadow(0 0 15px 6px rgba(0, 0, 0, 0.1));
+      @include transition(all 0.3s ease-in-out);
+      font-size: 32px;
+      color: $white;
+      background: $primary;
+    }
+
+    &:hover, &:focus {
+      color: $primary;
+      background: $text-dark;
+    }
+  }
+
+  &.scroll-visible {
+    opacity: 1;
+    visibility: visible;
+    @include transform(translate3d(0, 0, 0));
+  }
+}
+
+/* ------------------------
+    Page Title
+------------------------*/
+
+.page-title {
+  display: block;
+  position: relative;
+  padding: 150px 0;
+}
+
+.breadcrumb {
+  background: none;
+  display: inline-block;
+  margin: 0;
+  text-transform: capitalize;
+  color: $text-dark;
+  font-weight: 600;
+}
+
+.breadcrumb-item {
+  display: inline-block;
+
+  a {
+    color: $text-dark;
+  }
+
+  &.active, a:hover {
+    color: $primary;
+  }
+
+  + .breadcrumb-item:before {
+    color: $primary;
+    content: "\f054";
+    font-family: 'Line Awesome Free';
+    font-weight: 700;
+  }
+}
+
+.title-text-bg {
+  font-size: 100px;
+  line-height: 1;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: $white;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+  width: 100%;
+  text-align: center;
+  @include animation(floatText 15s linear infinite);
+  right: 0;
+}
+
+/* ------------------------
+    Flat Icon
+------------------------*/
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/Flaticon.eot");
+  src: url("../fonts/Flaticon.eot?#iefix") format("embedded-opentype"), url("../fonts/Flaticon.woff2") format("woff2"), url("../fonts/Flaticon.woff") format("woff"), url("../fonts/Flaticon.ttf") format("truetype"), url("../fonts/Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("../fonts/Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+  font-family: Flaticon;
+  font-style: normal;
+}
+
+.flaticon-phone-call:before {
+  content: "\f100";
+}
+
+.flaticon-wall-clock:before {
+  content: "\f101";
+}
+
+.flaticon-email:before {
+  content: "\f102";
+}
+
+.flaticon-house:before {
+  content: "\f103";
+}
+
+.flaticon-building:before {
+  content: "\f104";
+}
+
+.flaticon-home:before {
+  content: "\f105";
+}
+
+.flaticon-under-construction:before {
+  content: "\f106";
+}
+
+.flaticon-project:before {
+  content: "\f107";
+}
+
+.flaticon-house-1:before {
+  content: "\f108";
+}
+
+.flaticon-maintenance:before {
+  content: "\f109";
+}
+
+.flaticon-repair-tools:before {
+  content: "\f10a";
+}
+
+.flaticon-architecture:before {
+  content: "\f10b";
+}
+
+.flaticon-design-team:before {
+  content: "\f10c";
+}
+
+.flaticon-medal:before {
+  content: "\f10d";
+}
+
+.flaticon-medal-1:before {
+  content: "\f10e";
+}
+
+.flaticon-worker:before {
+  content: "\f10f";
+}
+
+.flaticon-left-quote:before {
+  content: "\f110";
+}

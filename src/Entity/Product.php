@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      itemOperations={
  *         "get"
  *     },
- *     paginationItemsPerPage=8
+ *     paginationItemsPerPage=1
  * )
  *
  * @ApiFilter(SearchFilter::class, properties={"name":"partial","categoryProduct":"partial"})
@@ -125,6 +125,11 @@ class Product
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProductViewImage::class, mappedBy="product")
+     */
+    private $productViewImages;
+
     public function __toString(): ?string
     {
         return (string)$this->name;
@@ -134,6 +139,7 @@ class Product
     {
         $this->comments = new ArrayCollection();
         $this->public = false;
+        $this->productViewImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -309,6 +315,36 @@ class Product
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductViewImage[]
+     */
+    public function getProductViewImages(): Collection
+    {
+        return $this->productViewImages;
+    }
+
+    public function addProductViewImage(ProductViewImage $productViewImage): self
+    {
+        if (!$this->productViewImages->contains($productViewImage)) {
+            $this->productViewImages[] = $productViewImage;
+            $productViewImage->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductViewImage(ProductViewImage $productViewImage): self
+    {
+        if ($this->productViewImages->removeElement($productViewImage)) {
+            // set the owning side to null (unless already changed)
+            if ($productViewImage->getProduct() === $this) {
+                $productViewImage->setProduct(null);
+            }
+        }
 
         return $this;
     }

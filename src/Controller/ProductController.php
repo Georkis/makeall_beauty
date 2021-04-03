@@ -3,12 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\ProductViewImage;
 use App\Form\ProductEditType;
 use App\Form\ProductType;
+use App\Form\ProductViewImageType;
 use App\Repository\ProductRepository;
+use App\Repository\ProductViewImageRepository;
+use App\Service\FileUploader;
 use App\Service\ImageCropUpload;
 use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -165,5 +170,75 @@ class ProductController extends AbstractController
         }
 
 
+    }
+
+    /**
+     * @param Product $product
+     * @Route("/view/{id}", name="producto_view_images_new")
+     */
+    public function viewImagesProduct(Request $request, Product $product, FileUploader $fileUploader, ProductViewImageRepository $productViewImageRepository)
+    {
+        $productViewImage = new ProductViewImage();
+
+        $form = $this->createForm(ProductViewImageType::class, $productViewImage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $cantidad = $product->getProductViewImages()->count();
+            if ($cantidad === 3){
+                $this->addFlash('danger', 'Ha alcanzado el limite de subir imagen');
+
+                return $this->redirectToRoute('producto_view_images_new', [
+                    'id' => $product->getId()
+                ]);
+            }
+
+            $image = $form['image']->getData();
+            if ($image) {
+                $filename = $fileUploader->upload($image);
+                $productViewImage->setImage($filename);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $productViewImage->setProduct($product);
+            $entityManager->persist($productViewImage);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Se ha subido la imagen satisfactoriamente');
+
+            return $this->redirectToRoute('producto_view_images_new', [
+                'id' => $product->getId()
+            ]);
+        }
+
+        return $this->render('product/subir_vistas.html.twig', [
+            'form' => $form->createView(),
+            'product' => $product,
+            'views' => $productViewImageRepository->findBy(['product' => $product])
+        ]);
+    }
+
+    /**
+     * @param ProductViewImage $productViewImage
+     * @Route("/eliminar/{id}", name="producto_view_images_eliminar")
+     */
+    public function eliminarView(ProductViewImage $productViewImage, ContainerInterface $container)
+    {
+        $productId = $productViewImage->getProduct()->getId();
+        $image = $productViewImage->getImage();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($productViewImage);
+        $entityManager->flush();
+
+        try {
+            unlink($container->getParameter('app.images').$image);
+        }catch (\Exception $exception){
+
+        }
+        $this->addFlash('success', 'Se ha eliminado satisfactoriamente');
+
+        return $this->redirectToRoute('producto_view_images_new', [
+            'id' => $productId
+        ]);
     }
 }

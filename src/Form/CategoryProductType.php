@@ -13,6 +13,7 @@ class CategoryProductType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('lead')
         ;
     }
 

@@ -1,0 +1,102 @@
+/* ------------------------------------------------
+  Project:   Konster - Construction Building HTML5 Template
+  Author:    ThemeHt
+
+  NOTE: This is Color customizer stylesheet of template.
+------------------------------------------------ */
+
+/* ------------------------
+    General
+------------------------*/
+::-moz-selection { background: #ff5e15; color: #fff; text-shadow: none; }
+::-moz-selection { background: #ff5e15; color: #fff; text-shadow: none; }
+::selection { background: #ff5e15; color: #fff; text-shadow: none; }
+
+/* ------------------------
+    Background Color
+------------------------*/
+.theme-bg,
+.btn.btn-theme,
+.btn.btn-outline:hover,
+.btn.btn-dark:hover,
+.scroll-top a,
+.loader span,
+.nav-item.dropdown .dropdown-menu a:before,
+.pagination > li.active .page-link, .page-link:hover, .page-link:focus,
+[data-overlay].theme-overlay:before,
+.about-sec::before,
+.list-icon li i,
+.testimonial-img i,
+.team-social-icon li a:hover,
+.social-icons li:hover a,
+.featured-item.style-2 .featured-desc a,
+.ht-progress-bar .progress .progress-bar,
+.widget-tags a:hover,
+.widget .widget-size ul li a:hover,
+.product-link button:hover,
+.form-check-input:checked,
+.widget-color .form-check-input[type="radio"]:checked + label::after,
+.widget-size input[type="radio"]:checked + label,
+.tab .nav-tabs .nav-link.active, .tab .nav-tabs .nav-link:hover, .tab .nav-tabs.active > a:focus, .tab .nav-tabs > a:hover,
+.owl-carousel .owl-dots .owl-dot:hover span, .owl-carousel .owl-dots .owl-dot.active span,
+.owl-carousel .owl-nav button.owl-prev:hover, .owl-carousel .owl-nav button.owl-next:hover, .banner-slider.owl-carousel .owl-nav button.owl-prev:hover, .banner-slider.owl-carousel .owl-nav button.owl-next:hover
+{ background-color: #ff5e15;}
+
+
+/* ------------------------
+    Color
+------------------------*/
+a, button, input, 
+a:focus, a:hover,
+.text-theme,
+.navbar-nav .nav-link:hover, .navbar-nav .nav-item .nav-link.active,
+.header-2 .navbar-nav .nav-link:hover, .header-2 .navbar-nav .nav-item .nav-link.active,
+.nav-item.dropdown .dropdown-menu a:hover,
+.breadcrumb-item.active, .breadcrumb-item a:hover,
+.breadcrumb-item + .breadcrumb-item::before,
+.scroll-top a:hover, .scroll-top a:focus,
+.topbar-link a:hover,
+.featured-item:hover .featured-icon i, .featured-item.active .featured-icon i,
+.featured-item .btn-link,
+.post .post-desc h4 a:hover,
+.brochure i,
+.media-icon li i,
+.media-icon li a:hover,
+.footer-list li a:hover,
+.video-btn .play-btn:hover i,
+.product-title a:hover,
+.product-link a i,
+.view-filter a.active,
+.accordion-button:not(.collapsed)
+{color: #ff5e15;}
+
+
+
+/* ------------------------
+    Border Color
+------------------------*/
+.btn.btn-outline:hover,
+.form-check-input:checked,
+.accordion-button:focus,
+.pagination > li.active .page-link, .page-link:hover, .page-link:focus
+{border-color: #ff5e15;}
+
+
+/* ------------------------
+    Border Bottom Color
+------------------------*/
+.featured-item .featured-icon i::after
+{border-bottom-color: #ff5e15;}
+
+/* ------------------------
+    Border Top Color
+------------------------*/
+.project-item.style-2::after
+{border-top-color: #ff5e15;}
+
+
+@media (max-width: 992px){
+.navbar-toggler span{background-color: #ff5e15}
+.navbar-nav .nav-link:hover, .navbar-nav .nav-item .nav-link.active,
+.navbar-nav .nav-item.show .nav-link{color: #ff5e15}
+}

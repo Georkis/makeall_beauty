@@ -1,0 +1,349 @@
+/* ------------------------------------------------
+  Project:   Konster - Construction Building HTML5 Template
+  Author:    ThemeHt
+------------------------------------------------ */
+
+@import 'custom/theme-variables';
+@import 'custom/mixins';
+
+/* ------------------------
+    Responsive Css
+------------------------*/
+@media (max-width: 1200px) {
+  .navbar-nav .nav-item {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  h1 {
+    font-size: 60px;
+    line-height: 70px;
+  }
+
+  h2 {
+    font-size: 36px;
+    line-height: 46px;
+  }
+
+  h3 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  h4 {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  h5 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  h6 {
+    font-size: 17px;
+    line-height: 26px;
+  }
+
+  /*Header*/
+
+  #header-wrap {
+    padding: 10px 0;
+
+    .navbar-nav:before {
+      display: none;
+    }
+  }
+
+  .logo img {
+    max-height: 60px;
+  }
+
+  .navbar {
+    padding: 10px 0;
+  }
+
+  .navbar-toggler {
+    background: none;
+    height: 34px;
+    width: 40px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid $text-body;
+  }
+
+  .navbar-nav {
+    ul {
+      position: static;
+    }
+
+    > .nav-item {
+      margin: 0;
+    }
+
+    .nav-link {
+      padding: 10px !important;
+      color: #0d2c13;
+      border-radius: .25rem;
+
+      &:hover {
+        background: $primary2;
+        color: $primary;
+      }
+    }
+
+    .nav-item {
+      .nav-link.active, &.show .nav-link {
+        background: $primary2;
+        color: $primary;
+      }
+    }
+  }
+
+  .navbar-collapse {
+    background: $white;
+    border-radius: .25rem;
+    max-height: 400px;
+    left: 0;
+    padding: 10px;
+    position: absolute;
+    z-index: 99;
+    top: 100%;
+    width: 100%;
+    overflow: auto;
+    border: medium none;
+    @include box-shadow(7px 5px 30px rgba(72, 73, 121, 0.15));
+  }
+
+  .navbar-toggler span {
+    width: 26px;
+    height: 2px;
+    margin: 5px auto;
+    display: block;
+    background: $primary;
+  }
+
+  .navbar-nav {
+    .dropdown-toggle::after {
+      content: '+';
+      background: none !important;
+      position: absolute;
+      border: none;
+      top: 50%;
+      right: 0;
+      margin: -0.5em 0.5em 0 0;
+      border-radius: .25rem;
+      padding: 0;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .dropdown.show > .dropdown-toggle::after {
+      content: '-';
+    }
+
+    .dropdown-submenu .dropdown-toggle::after {
+      right: 20px;
+      width: auto;
+      height: auto;
+      margin-right: 0;
+    }
+  }
+
+  .header-2 {
+    #header-wrap {
+      padding: 0;
+    }
+
+    .right-nav {
+      width: auto !important;
+    }
+  }
+
+  .navbar {
+    padding: 0;
+  }
+
+  .header-2 .navbar-brand {
+    padding: 15px;
+
+    &::before, &::after {
+      height: 110%;
+    }
+  }
+
+  /*Banner*/
+
+  .fullscreen-banner {
+    min-height: inherit;
+    height: auto !important;
+
+    .align-center {
+      position: inherit;
+      transform: inherit;
+      padding: 150px 0 150px !important;
+    }
+  }
+
+  /*Side Image*/
+
+  .image-column {
+    left: 0;
+    position: relative;
+    top: inherit;
+    transform: inherit;
+  }
+
+  .image-column-h {
+    min-height: 300px;
+  }
+
+  /*Countdown*/
+
+  .countdown > li {
+    span {
+      font-size: 60px;
+      line-height: 70px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  h2 {
+    font-size: 30px;
+  }
+
+  h3 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .hidden-sm {
+    display: none !important;
+  }
+
+  .section-title {
+    h2 {
+      font-size: 34px;
+      line-height: 40px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  /*Header*/
+
+  .navbar-toggler {
+    margin-right: 15px;
+  }
+
+  .logo img {
+    max-height: 50px;
+  }
+
+  /*Countdown*/
+
+  .countdown > li {
+    span {
+      font-size: 40px;
+      line-height: 40px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .year-box {
+    width: 130px;
+    height: 130px;
+    margin-top: -65px;
+    font-size: 14px;
+    line-height: 20px;
+
+    span {
+      font-size: 40px;
+      line-height: 40px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .col-xx-12 {
+    width: 100% !important;
+  }
+
+  h1 {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  h2 {
+    font-size: 28px;
+    line-height: 36px;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  h4 {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .section-title h2 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  /*Banner*/
+
+  .fullscreen-banner p br {
+    display: none;
+  }
+
+  .breadcrumb-item {
+    line-height: 30px;
+  }
+
+  .title-text-bg {
+    font-size: 60px;
+  }
+
+  /*Banner*/
+
+  .tab .nav-tabs .nav-link {
+    display: block;
+    width: 100%;
+  }
+
+  .owl-carousel .owl-nav button {
+    &.owl-prev {
+      left: 0px;
+    }
+
+    &.owl-next {
+      right: 0px;
+    }
+  }
+
+  .post {
+    .post-image {
+      width: auto;
+    }
+
+    &.style-2 .post-desc {
+      padding: 15px;
+    }
+  }
+}

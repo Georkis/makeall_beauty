@@ -50,6 +50,14 @@
                                 <td>{{ product.name }}</td>
                             </tr>
                             <tr>
+                                <th>Me gustan</th>
+                                <td>{{ product.likeCount ?? 0 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Visitas</th>
+                                <td>{{ product.visita ?? 0 }}</td>
+                            </tr>
+                            <tr>
                                 <th>Description</th>
                                 <td>{{ product.description | raw }}</td>
                             </tr>

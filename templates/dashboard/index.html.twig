@@ -13,45 +13,20 @@
                     <div class="card-title">Top Products</div>
                 </div>
                 <div class="card-body pb-0">
-                    <div class="d-flex">
-                        <div class="avatar">
-                            <img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
+                    {% for p in products %}
+                        <div class="d-flex">
+                            <div class="avatar">
+                                <img src="{{ asset('images/' ~ p.image) }}" alt="{{ p }}" class="avatar-img rounded-circle">
+                            </div>
+                            <div class="flex-1 pt-1 ml-2">
+                                <h6 class="fw-bold mb-1">{{ p | Truncar(40) }}</h6>
+                            </div>
+                            <div class="d-flex ml-auto align-items-center">
+                                <h3 class="text-info fw-bold">US ${{ p.price | number_format(2, '.',',') }}</h3>
+                            </div>
                         </div>
-                        <div class="flex-1 pt-1 ml-2">
-                            <h6 class="fw-bold mb-1">CSS</h6>
-                            <small class="text-muted">Cascading Style Sheets</small>
-                        </div>
-                        <div class="d-flex ml-auto align-items-center">
-                            <h3 class="text-info fw-bold">+$17</h3>
-                        </div>
-                    </div>
-                    <div class="separator-dashed"></div>
-                    <div class="d-flex">
-                        <div class="avatar">
-                            <img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-                        </div>
-                        <div class="flex-1 pt-1 ml-2">
-                            <h6 class="fw-bold mb-1">J.CO Donuts</h6>
-                            <small class="text-muted">The Best Donuts</small>
-                        </div>
-                        <div class="d-flex ml-auto align-items-center">
-                            <h3 class="text-info fw-bold">+$300</h3>
-                        </div>
-                    </div>
-                    <div class="separator-dashed"></div>
-                    <div class="d-flex">
-                        <div class="avatar">
-                            <img src="../assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
-                        </div>
-                        <div class="flex-1 pt-1 ml-2">
-                            <h6 class="fw-bold mb-1">Ready Pro</h6>
-                            <small class="text-muted">Bootstrap 4 Admin Dashboard</small>
-                        </div>
-                        <div class="d-flex ml-auto align-items-center">
-                            <h3 class="text-info fw-bold">+$350</h3>
-                        </div>
-                    </div>
-                    <div class="separator-dashed"></div>
+                        <div class="separator-dashed"></div>
+                    {% endfor %}
                     <div class="pull-in">
                         <canvas id="topProductsChart"></canvas>
                     </div>

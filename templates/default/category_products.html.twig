@@ -1,4 +1,4 @@
-{% extends "frontend.html.twig" %}
+{% extends "frontend_ui.html.twig" %}
 
 {% block title %}Compra: {{ categoria }}{% endblock %}
 {% block metas %}
@@ -7,16 +7,75 @@
     <meta property="og:title" content="{{ categoria.name }}">
     <meta property="og:description" content="Make all Beauty, oferta {{ categoria.name }}">
 {% endblock %}
-{% block body_estrecho %}
-    <h4 class="bg-secondary p-2" style="color: #FFF">{{ categoria }}</h4>
-    <hr>
-    <div class="row featured__filter" id="contenido"></div>
-    <div class="row featured__filter d-none mb-5" id="paginate-contenido">
-        <a onclick="getProducts(this); return false;" id="previous" href="" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i></a>
-        <span id="pages-paginate"></span>
-        <a onclick="getProducts(this); return false;" id="next" href="" class="btn btn-outline-danger ml-2"><i class="fa fa-angle-right"></i></a>
-        <span id="label-pages" class="mt-2 ml-3"></span>
-    </div>
+{% block body %}
+    <!--page title start-->
+
+    <section class="page-title dark-bg z-index-1 parallaxie" data-bg-img="{{ asset('img/bg/06.jpg') }}" data-overlay="9">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="title-text-bg">{{ categoria }}</div>
+                    <h1 class="text-theme">{{ categoria }}</h1>
+                    <p class="text-white mt-2 mb-0">{{ categoria.lead }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="p-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6">
+                    <div class="white-bg p-3 rounded mt-n4 z-index-1 shadow-sm">
+                        <nav aria-label="breadcrumb" class="page-breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('inicio') }}"><i class="las la-home me-1"></i>Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item">Productos
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Listado de productos</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 order-lg-1">
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <span id="label-pages" class="text-muted"></span>
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center justify-content-md-end">
+{#                            <div class="view-filter"> #}
+{#                                <a class="active" href="product-grid.html"><i class="lab la-buromobelexperte"></i></a>#}
+{#                                <a href="product-list.html"><i class="las la-list"></i></a>#}
+{#                            </div>#}
+                            <div class="sort-filter ms-2 d-flex align-items-center">
+                                <select class="form-select">
+                                    <option selected>Ordenado por</option>
+                                    <option value="2">Populares</option>
+                                    <option value="3">Los más me gustas</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="contenido">
+
+                    </div>
+                    <nav aria-label="Page navigation" class="mt-6" id="paginate-contenido">
+                        <ul class="pagination">
+                            <li class="page-item"><a onclick="getProducts(this); return false;" id="previous" href="" class="page-link rounded"><i class="las la-arrow-left"></i></a></li>
+                            <span id="pages-paginate"></span>
+                            <li class="page-item"><a onclick="getProducts(this); return false;" id="next" href="" class="page-link rounded"><i class="las la-arrow-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 {% block js %}
     <script>
@@ -31,7 +90,7 @@
                 $('#contenido').children().remove();
                 var products = response['hydra:member'];
                 var total = response['hydra:totalItems'];
-                var pageSize = 8;
+                var pageSize = 1;
                 if (total > pageSize) {
                     var view = response['hydra:view'];
                     var next = view['hydra:next'];
@@ -46,7 +105,7 @@
                     $('#pages-paginate').children().remove();
                     for (let i = 1; i <= pageCont; i++){
                         $('#pages-paginate').append(
-                            '<a onclick="getProducts(this); return false;" href="/api/products?categoryProduct={{ categoria.id }}&public=true&page='+i+'" class="btn btn-'+(pageCurrent == i ? 'danger' : 'outline-danger')+' ml-1">'+i+'</a>'
+                            '<a onclick="getProducts(this); return false;" href="/api/products?categoryProduct={{ categoria.id }}&public=true&page='+i+'#contenido" class="btn btn-'+(pageCurrent == i ? 'secondary-active' : 'secondary')+'">'+i+'</a>'
                         );
                     }
 
@@ -67,24 +126,27 @@
                     $('#paginate-contenido').removeClass('d-none');
 
                     $('#label-pages').html(
-                        'Pagina: '+ pageCurrent +' - '+ total
+                        'Mostrar página: '+ pageCurrent +' de '+ total
                     );
 
                     $('#contenido').children().remove();
                     for (let i = 0; i < products.length; i++){
                         let image = "/images/"+products[i]['image'];
                         $('#contenido').append(
-                            '<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">' +
-                                '<div class="featured__item">' +
-                                    '<div class="featured__item__pic set-bg thumbnail" data-setbg="'+image+'" style="background-image: url('+image+');">' +
-                                        '<ul class="featured__item__pic__hover">' +
-                                            '<li><a onclick="likePlus(this); return false;" href="/like/product/'+products[i]['id']+'"><i class="fa fa-heart"></i></a></li>' +
-                                            '<li><a href="/producto/'+products[i]['slug']+'"><i class="fa fa-link"></i></a></li>' +
-                                        '</ul>' +
+                            '<div class="col-lg-3 col-sm-6">' +
+                                '<div class="card product-card shadow-sm">' +
+                                    '<div class="product-img position-relative">' +
+                                        '<img class="img-fluid" src="'+image+'" alt="'+products[i]['name']+'">' +
+                                        '<div class="product-link d-flex align-items-center justify-content-center position-absolute w-100 dark-bg">' +
+                            '<button href="/producto/'+products[i]['slug']+'" class="btn-compare" type="button"><i class="las la-link"></i></button>' +
+                            '<button onclick="likePlus(this); return false;" href="/like/product/'+products[i]['id']+'" class="btn-wishlist" type="button"><i class="lar la-heart"></i></button>' +
+                                        '</div>' +
                                     '</div>' +
-                                    '<div class="featured__item__text">' +
-                                        '<h6><a href="/producto/'+products[i]['slug']+'">'+products[i]['name']+'</a></h6>\n' +
-                                        '<h5>US$ '+products[i]['price']+'</h5>\n' +
+                                    '<div class="card-body">' +
+                                        '<div class="product-title"><a href="/producto/'+products[i]['slug']+'">'+products[i]['name']+'</a>' +
+                                        '</div>' +
+                                        '<div class="mt-1"> <span class="product-price">US $'+products[i]['price']+'</span>' +
+                                        '</div>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>'
@@ -94,26 +156,30 @@
                     for (let i = 0; i < products.length; i++){
                         let image = "/images/"+products[i]['image'];
                         $('#contenido').append(
-                            '<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">' +
-                                '<div class="featured__item">' +
-                                    '<div class="featured__item__pic set-bg thumbnail" data-setbg="'+image+'" style="background-image: url('+image+');">' +
-                                        '<ul class="featured__item__pic__hover">' +
-                                            '<li><a onclick="likePlus(this); return false;" href="/like/product/'+products[i]['id']+'"><i class="fa fa-heart"></i></a></li>' +
-                                            '<li><a href="/producto/'+products[i]['slug']+'"><i class="fa fa-link"></i></a></li>' +
-                                        '</ul>' +
-                                    '</div>' +
-                                    '<div class="featured__item__text">' +
-                                        '<h6><a href="/producto/'+products[i]['slug']+'">'+products[i]['name']+'</a></h6>\n' +
-                                        '<h5>US$ '+products[i]['price']+'</h5>\n' +
+                            '<div class="col-lg-3 col-sm-6">' +
+                            '<div class="card product-card shadow-sm">' +
+                                '<div class="product-img position-relative">' +
+                                    '<img class="img-fluid" src="'+image+'" alt="'+products[i]['name']+'">' +
+                                    '<div class="product-link d-flex align-items-center justify-content-center position-absolute w-100 dark-bg">' +
+                                        '<button href="/producto/'+products[i]['slug']+'" class="btn-compare" type="button"><i class="las la-link"></i></button>' +
+                                        '<button onclick="likePlus(this); return false;" href="/like/product/'+products[i]['id']+'" class="btn-wishlist" type="button"><i class="lar la-heart"></i></button>' +
                                     '</div>' +
                                 '</div>' +
-                            '</div>'
+                                '<div class="card-body">' +
+                                    '<div class="product-title"><a href="/producto/'+products[i]['slug']+'">'+products[i]['name']+'</a>' +
+                                    '</div>' +
+                                    '<div class="mt-1"> <span class="product-price">US $'+products[i]['price']+'</span>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>'
                         );
                     }
                 }
             });
         }
 
-        getProducts('/api/products?categoryProduct={{ categoria.id }}?&public=true&page=1');
+        getProducts('/api/products?page=1&categoryProduct={{ categoria.id }}&public=true#contenido');
+
     </script>
 {% endblock %}

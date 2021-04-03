@@ -1,0 +1,160 @@
+{% extends "frontend_ui.html.twig" %}
+
+{% block title %}{% endblock %}
+{% block metas %}
+
+{% endblock %}
+
+{% block body %}
+    <!--page title start-->
+
+    <section class="page-title dark-bg z-index-1 parallaxie" data-bg-img="{{ asset('img/bg/06.jpg') }}" data-overlay="9">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="title-text-bg">{{ blog }}</div>
+                    <h1 class="text-theme">Blog <span class="text-white">{{ blog }}</span></h1>
+                    <p class="text-white mt-2 mb-0">{{ blog.lead }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="p-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6">
+                    <div class="white-bg p-3 rounded mt-n4 z-index-1 shadow-sm">
+                        <nav aria-label="breadcrumb" class="page-breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('inicio') }}"><i class="las la-home me-1"></i>Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a onclick="history.go(-1)" href="#">Blogs</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ blog }}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--page title end-->
+    <!--blog start-->
+    <section>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <!-- Blog Card -->
+                    <div class="post shadow-none">
+                        <div class="post-image overflow-hidden position-relative">
+                            <img class="img-fluid rounded" style="width: 100%" src="{{ asset('images/' ~ blog.image) }}" alt="{{ blog }}">
+                        </div>
+                        <div class="post-desc py-4">
+                            <div class="post-meta pb-3 mb-3 border-bottom border-light">
+                                <ul class="list-inline">
+                                    <li><button onclick="likeless(this); return false;" data-url="{{ path('default_like_blog', { 'slug' : blog.slug }) }}" class="btn btn-secondary">Me gusta <i class="far fa-heart"></i> {{ blog.likeless ?? 0 }}</button></li>
+                                    <li><a class="btn btn-secondary" href="{{ path('default_blog_category', {'slug': blog.category.slug}) }}"><i class="las la-ticket-alt me-1 text-theme"></i>Categoría: {{ blog.category }}</a></li>
+                                    <li><i class="lar la-calendar-alt me-1 text-theme"></i>{{ blog.date | date('d M, Y') }}</li>
+                                </ul>
+                            </div>
+                            <div class="post-title">
+                                <h4>{{ blog.lead }}</h4>
+                            </div>
+                        </div>
+                        {{ blog | raw }}
+                        <div class="d-md-flex justify-content-between">
+                            <div class="d-flex align-items-center text-md-end mt-5 mt-md-0">
+                                <h6 class="mb-0 me-4">Tags: </h6>
+                                <ul class="list-inline mb-0 widget-tags">
+                                    {% for t in blog.tags %}
+                                        <li class="list-inline-item"><a class="rounded d-inline-block m-1" href="{{ path('default_blog_tag', {'slug': t.slug }) }}">{{ t | capitalize }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+{#                        <div class="mt-6 box-shadow rounded p-5">#}
+{#                            <div class="mb-4">#}
+{#                                <h2>Recent <span class="font-w-3">comments</span></h2>#}
+{#                            </div>#}
+{#                            <div class="d-block d-md-flex">#}
+{#                                <div class="me-md-4 mb-4 mb-md-0">#}
+{#                                    <img class="img-fluid rounded box-shadow" alt="image" src="images/thumbnail/01.jpg">#}
+{#                                </div>#}
+{#                                <div>#}
+{#                                    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">#}
+{#                                        <h6 class="mb-0">Angela Ryan</h6>  <small class="text-muted">5 Days Ago</small>#}
+{#                                    </div>#}
+{#                                    <p>Always work with experts, all the workers wexpertise,there is no conflict between themipsum dolor sit , consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p> <a class="btn btn-dark btn-sm" href="#">Reply</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="d-block d-md-flex shadow-sm rounded p-4 my-5">#}
+{#                                <div class="me-md-4 mb-4 mb-md-0">#}
+{#                                    <img class="img-fluid rounded box-shadow" alt="image" src="images/thumbnail/02.jpg">#}
+{#                                </div>#}
+{#                                <div>#}
+{#                                    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">#}
+{#                                        <h6 class="mb-0">Marko Lar</h6>  <small class="text-muted">5 Days Ago</small>#}
+{#                                    </div>#}
+{#                                    <p>Always work with experts, all the workers wexpertise,there is no conflict between themipsum dolor sit , consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p> <a class="btn btn-dark btn-sm" href="#">Reply</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="d-block d-md-flex">#}
+{#                                <div class="me-md-4 mb-4 mb-md-0">#}
+{#                                    <img class="img-fluid rounded box-shadow" alt="image" src="images/thumbnail/03.jpg">#}
+{#                                </div>#}
+{#                                <div>#}
+{#                                    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">#}
+{#                                        <h6 class="mb-0">Jaimy Koll</h6>  <small class="text-muted">5 Days Ago</small>#}
+{#                                    </div>#}
+{#                                    <p>Always work with experts, all the workers wexpertise,there is no conflict between themipsum dolor sit , consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p> <a class="btn btn-dark btn-sm" href="#">Reply</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="post-comments mt-5">#}
+{#                            <div class="mb-4">#}
+{#                                <h2>Leave a <span class="font-w-3">comment</span></h2>#}
+{#                            </div>#}
+{#                            <form id="contact-form" class="row" method="post" action="contact.php">#}
+{#                                <div class="messages"></div>#}
+{#                                <div class="form-group col-sm-6">#}
+{#                                    <input id="form_name" type="text" name="name" class="form-control" placeholder="Name" required="required" data-error="Name is required.">#}
+{#                                    <div class="help-block with-errors"></div>#}
+{#                                </div>#}
+{#                                <div class="form-group col-sm-6">#}
+{#                                    <input id="form_email" type="email" name="email" class="form-control" placeholder="Email" required="required" data-error="Valid email is required.">#}
+{#                                    <div class="help-block with-errors"></div>#}
+{#                                </div>#}
+{#                                <div class="form-group mb-0 col-sm-12">#}
+{#                                    <textarea id="form_message" name="message" class="form-control h-auto" placeholder="Your Comment" rows="4" required="required" data-error="Please,leave us a message."></textarea>#}
+{#                                    <div class="help-block with-errors"></div>#}
+{#                                </div>#}
+{#                                <div class="col-sm-12">#}
+{#                                    <button class="btn btn-theme mt-5"><span>Post Comment</span></button>#}
+{#                                </div>#}
+{#                            </form>#}
+{#                        </div>#}
+                    </div>
+                    <!-- End Blog Card -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--blog end-->
+{% endblock %}
+{% block js %}
+    <script>
+        function likeless(element) {
+            let url = $(element).attr('data-url');
+            $.ajax({
+                url: url,
+                method: 'POST',
+                beforeSend: function () {
+                    $(element).attr('disabled','disabled');
+                }
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h4 class="page-title">Blog</h4>
+        <ul class="breadcrumbs">
+            <li class="nav-home">
+                <a href="{{ path('dashboard') }}">
+                    <i class="flaticon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-home">
+                <a href="{{ path('blog_index') }}">
+                    Listado
+                </a>
+            </li>
+            <li class="separator">
+                <i class="flaticon-right-arrow"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">Mostrar </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    Imagen
+                </div>
+                <div class="card-body">
+                    <img src="{{ asset('images/' ~ blog.image) }}" alt="{{ blog }}" class="img-fluid">
+                    <a href="{{ path('blog_cropper', {'id': blog.id}) }}" class="btn btn-warning btn-block mt-2">Editar imagen</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Mostrar</h5>
+                    <div class="card-tools float-right">
+                        <a href="{{ path('blog_index') }}" class="btn btn-secondary btn-xs"><i class="fa fa-list"></i>
+                            Regresar</a>
+                        <a href="{{ path('blog_edit', {'id': blog.id}) }}" class="btn btn-warning btn-xs"><i
+                                    class="fa fa-edit"></i> Editar</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ blog.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <td>{{ blog.title }}</td>
+                            </tr>
+                            <tr>
+                                <th>Lead</th>
+                                <td>{{ blog.lead }}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{ blog.description | raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td>{{ blog.date ? blog.date|date('Y-m-d') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Visit</th>
+                                <td>{{ blog.visit }}</td>
+                            </tr>
+                            <tr>
+                                <th>Likeless</th>
+                                <td>{{ blog.likeless }}</td>
+                            </tr>
+                            <tr>
+                                <th>Public</th>
+                                <td>{{ blog.public ? 'Yes' : 'No' }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

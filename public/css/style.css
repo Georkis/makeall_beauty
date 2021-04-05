@@ -234,11 +234,11 @@ section {
 }
 
 .dark-bg {
-  background-color: #971c77;
+  background-color: #39022a;
 }
 
 .light-bg {
-  background-color: #fd9ecf;
+  background-color: #ccc8ca;
 }
 
 .theme-bg {
@@ -891,7 +891,7 @@ Service Sidebar
 }
 
 .brochure {
-  background: #fd9ecf;
+  background: #ccc8ca;
   display: block;
   font-size: 16px;
   font-weight: 400;
@@ -967,7 +967,7 @@ Extra
 }
 
 .bg-effect:after {
-  background: #fd9ecf;
+  background: #ccc8ca;
   top: 0;
   content: "";
   position: absolute;

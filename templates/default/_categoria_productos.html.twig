@@ -1,0 +1,68 @@
+{% extends "frontend_ui.html.twig" %}
+
+{% block body %}
+    <section class="page-title dark-bg z-index-1 parallaxie" data-bg-img="{{ asset('img/bg/06.jpg') }}" data-overlay="9">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="title-text-bg">Departamentos</div>
+                    <h1 class="text-theme">Productos por departamentos</h1>
+                    <p class="text-white mt-2 mb-0">Conviértete en la mejor versión de ti mismo/a</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="p-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6">
+                    <div class="white-bg p-3 rounded mt-n4 z-index-1 shadow-sm">
+                        <nav aria-label="breadcrumb" class="page-breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('inicio') }}"><i class="las la-home me-1"></i>Inicio</a>
+                                </li>
+                                <li class="breadcrumb-item">Departamentos
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--categoria start-->
+    <section class="light-bg">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8 col-12">
+                    <div class="section-title">
+                        <h6 class="text-theme2 text-uppercase letter-space-1">Departamentos</h6>
+                        <h2 class="title">Trabajamos con eficiencia <span class="font-w-3 d-md-block">con nuestros clientes</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                {% for c in categorias %}
+                    <div class="col-lg-3 col-md-6" {{ loop.index == 1 ? '' : 'mt-5 mt-md-0' }}>
+                        <div class="team-member p-3 rounded white-bg">
+                            <div class="team-images">
+                                <img class="img-fluid rounded" src="{{ asset('images/' ~ c.image) }}" alt="{{ c }}">
+                            </div>
+                            <div class="team-description pt-4 pb-2 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5><a href="{{ path('default_categoria_producto', { 'slug' : c.slug }) }}">{{ c }}</a></h5>
+                                    <span>{{ c.lead }}</span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="text-center">
+                                <a href="{{ path('default_categoria_producto', { 'slug' : c.slug }) }}" class="btn btn-dark">Visitar</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!--categoria end-->
+{% endblock %}

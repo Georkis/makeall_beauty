@@ -1,3 +1,9 @@
 function likePlus(element) {
-    $.post(element.href);
+    $.ajax({
+        url: element.href,
+        method: 'POST',
+        beforeSend: function () {
+            $(element).attr('disabled','disabled');
+        }
+    });
 }

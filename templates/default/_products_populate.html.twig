@@ -1,12 +1,5 @@
 {% extends "frontend_ui.html.twig" %}
 
-{% block title %}Compra: {{ categoria }}{% endblock %}
-{% block metas %}
-    <meta name="keywords" content="{{ categoria.name }}">
-    <meta name="description" content="Make all Beauty, oferta {{ categoria.name }}">
-    <meta property="og:title" content="{{ categoria.name }}">
-    <meta property="og:description" content="Make all Beauty, oferta {{ categoria.name }}">
-{% endblock %}
 {% block body %}
     <!--page title start-->
 
@@ -14,9 +7,9 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="title-text-bg">{{ categoria }}</div>
-                    <h1 class="text-theme">{{ categoria }}</h1>
-                    <p class="text-white mt-2 mb-0">{{ categoria.lead }}</p>
+                    <div class="title-text-bg">Productos populares</div>
+                    <h1 class="text-theme">Productos populares</h1>
+                    <p class="text-white mt-2 mb-0">Cuida bien de tu cuerpo; es el único lugar donde tienes que vivir</p>
                 </div>
             </div>
         </div>
@@ -30,7 +23,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ path('inicio') }}"><i class="las la-home me-1"></i>Inicio</a>
                                 </li>
-                                <li class="breadcrumb-item">Productos
+                                <li class="breadcrumb-item">Productos populares
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">Listado de productos</li>
                             </ol>
@@ -49,14 +42,14 @@
                             <span id="label-pages" class="text-muted"></span>
                         </div>
                         <div class="col-md-7 d-flex align-items-center justify-content-md-end">
-{#                            <div class="view-filter"> #}
-{#                                <a class="active" href="product-grid.html"><i class="lab la-buromobelexperte"></i></a>#}
-{#                                <a href="product-list.html"><i class="las la-list"></i></a>#}
-{#                            </div>#}
+                            {#                            <div class="view-filter"> #}
+                            {#                                <a class="active" href="product-grid.html"><i class="lab la-buromobelexperte"></i></a>#}
+                            {#                                <a href="product-list.html"><i class="las la-list"></i></a>#}
+                            {#                            </div>#}
                             <div class="sort-filter ms-2 d-flex align-items-center">
                                 <select id="product-filter" class="form-select">
-                                    <option selected value="">Ordenado por</option>
-                                    <option value="2">Populares</option>
+                                    <option>Ordenado por</option>
+                                    <option selected value="2">Populares</option>
                                     <option value="3">Los más me gustas</option>
                                 </select>
                             </div>

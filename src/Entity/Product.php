@@ -41,6 +41,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Product
 {
+    const page =1;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -130,6 +132,16 @@ class Product
      */
     private $productViewImages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="products")
+     */
+    private $tag;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lead;
+
     public function __toString(): ?string
     {
         return (string)$this->name;
@@ -140,6 +152,7 @@ class Product
         $this->comments = new ArrayCollection();
         $this->public = false;
         $this->productViewImages = new ArrayCollection();
+        $this->tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -345,6 +358,42 @@ class Product
                 $productViewImage->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTag(): Collection
+    {
+        return $this->tag;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tag->contains($tag)) {
+            $this->tag[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tag->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getLead(): ?string
+    {
+        return $this->lead;
+    }
+
+    public function setLead(string $lead): self
+    {
+        $this->lead = $lead;
 
         return $this;
     }

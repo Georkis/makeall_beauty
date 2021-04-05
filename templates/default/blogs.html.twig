@@ -70,7 +70,6 @@
 
                             {% apply spaceless %}
                                 {% if total > 1 %}
-
                                             <nav aria-label="Page navigation">
                                                 <ul class="pagination">
                                                     {% if current > 1 %}
@@ -112,7 +111,7 @@
                                 {% endif %}
                             {% endapply %}
                         {% endmacro %}
-                        {% set route = app.request.requestUri %}
+                        {% set route = app.request.requestUri ~ '/' %}
                         {{ _self.pagination(total, current, route) }}
 
                     </div>
@@ -129,7 +128,7 @@
                                     </div>
                                     <div class="col-sm-7">
                                         <h5 class="h6">
-                                            <a href="blog-single.html">{{ lb }}</a>
+                                            <a href="{{ path('default_blog_single', { 'slug' : lb.slug }) }}">{{ lb }}</a>
                                         </h5>
                                         <a class="d-inline-block text-grey" href="#"><time>{{ lb.date | date('d M, Y') }}</time></a>
                                     </div>

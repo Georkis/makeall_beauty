@@ -2,6 +2,14 @@
 
 {% block title %}{{ product }}{% endblock %}
 
+{% block metas %}
+    <meta name="keywords" content="
+        {% for t in product.tag %}
+            {{ t }}
+        {% endfor %}
+    ">
+    <meta name="description" content="{{ product.lead | Truncar(100) }}">
+{% endblock %}
 {% block body %}
     <section>
         <div class="container">

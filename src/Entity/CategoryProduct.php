@@ -14,19 +14,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(
- *     collectionOperations={
- *          "get" = {
- *              "normalization_context" = {"groups"="categoryProducto:read"}
- *          }
- *     },
- *     itemOperations={
- *          "get" = {
- *
- *          }
- *     }
- * )
- * @ApiFilter(BooleanFilter::class, properties={"active":"exact"})
  * @ORM\Entity(repositoryClass=CategoryProductRepository::class)
  */
 class CategoryProduct

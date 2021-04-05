@@ -16,25 +16,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(
- *      collectionOperations={
- *          "get" = {
- *              "normalization_context"={"groups"="producto"}
- *          },
- *          "buscador" = {
- *              "path" = "/buscador",
- *              "method" = "get",
- *              "normalization_context"={"groups"="buscador"},
- *          }
- *     },
- *      itemOperations={
- *         "get"
- *     },
- *     paginationItemsPerPage=1
- * )
- *
- * @ApiFilter(SearchFilter::class, properties={"name":"partial","categoryProduct":"partial"})
- * @ApiFilter(BooleanFilter::class, properties={"public":"exact"})
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @UniqueEntity(fields={"url"})
  * @UniqueEntity(fields={"slug"})

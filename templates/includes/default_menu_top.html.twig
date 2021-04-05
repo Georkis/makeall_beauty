@@ -13,10 +13,11 @@
                 <a class="nav-link" href="{{ path('inicio') }}">Inicio</a>
             </li>
             {% if categoryProducts %}
-            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Productos</a>
+            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Departamentos</a>
                 <ul class="dropdown-menu">
+                    <li><a class="nav-item" href="{{ path('default_categoria') }}">Todos los departamentos</a></li>
                     {% for cp in categoryProducts %}
-                        <li><a href="{{ path('default_categoria_producto', { 'slug' : cp.slug }) }}">{{ cp }}</a></li>
+                        <li><a class="nav-item" href="{{ path('default_categoria_producto', { 'slug' : cp.slug }) }}">{{ cp }}</a></li>
                     {% endfor %}
                 </ul>
             </li>
@@ -26,23 +27,10 @@
                     <a class="nav-link ml-2" href="{{ path('default_blogs') }}">Blog</a>
                 </li>
             {% endif %}
-
-{#            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Blog</a>#}
-{#                <ul class="dropdown-menu">#}
-{#                    <li><a href="blog-left-sidebar.html">Blog left sidebar</a>#}
-{#                    </li>#}
-{#                    <li><a href="blog-right-sidebar.html">Blog right sidebar</a>#}
-{#                    </li>#}
-{#                    <li><a href="blog-single.html">Blog Single</a>#}
-{#                    </li>#}
-{#                </ul>#}
-{#            </li>#}
         </ul>
-{#        <form class="d-flex">#}
-{#            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">#}
-{#            <button class="btn btn-outline-success" type="submit">Search</button>#}
-{#            <input type="search" class="form-control me-2 form-search" placeholder="Buscar producto" aria-label="Search products" aria-describedby="Search products">#}
-{#            <button class="btn btn-outline-primary btn-search" type="submit" id="button-addon2"><i class="las la-search text-theme2"></i></button>#}
-{#        </form>#}
+        <form id="formSearch" name="formSearch" method="get" class="d-flex" action="{{ path('default_search_product') }}">
+            <input id="cadena" name="cadena" required="required" type="search" class="form-control me-2 form-search" placeholder="Buscar producto" aria-label="Search products" aria-describedby="Search products">
+            <button class="btn btn-outline-primary btn-search" type="submit" id="button-addon2"><i class="las la-search text-theme2"></i></button>
+        </form>
     </div>
 </nav>

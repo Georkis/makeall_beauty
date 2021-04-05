@@ -15,6 +15,7 @@ use App\Repository\TagRepository;
 use App\Repository\VisitaPaisRepository;
 use App\Service\Mtto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,11 +40,12 @@ class DefaultController extends AbstractController
     /**
      * @Route("/inicio/", name="inicio")
      */
-    public function index(CategoryProductRepository $categoryProductRepository, ProductRepository $productRepository): Response
+    public function index(CategoryProductRepository $categoryProductRepository, ProductRepository $productRepository, BlogRepository $blogRepository): Response
     {
         return $this->render('default/index.html.twig', [
             'categories' => $categoryProductRepository->findBy(['active' => true], ['name' => 'ASC']),
-            'productos' => $productRepository->findBy(['public' => true], ['visita' => 'DESC'], 8)
+            'productos' => $productRepository->findBy(['public' => true], ['visita' => 'DESC'], 8),
+            'blogs' => $blogRepository->findBy([ 'public' => true ], ['id' => 'DESC'])
         ]);
     }
 
@@ -55,16 +57,106 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/categoria/producto/{slug}", name="default_categoria_producto")
+     * @Route("/categoria/producto/{slug}/{page}", name="default_categoria_producto", defaults={"page"=1})
      * @param CategoryProduct $categoryProduct
      * @param ProductRepository $productRepository
+     * @param $page
      * @return Response
      */
-    public function categoriaProductos(CategoryProduct $categoryProduct, ProductRepository $productRepository)
+    public function categoriaProductos(CategoryProduct $categoryProduct, ProductRepository $productRepository, $page)
     {
+        $productsTotal = $productRepository->findBy(['categoryProduct' => $categoryProduct, 'public' => true]);
+
+        $setMaxResults    = Product::page;
+        $cantTotal        = count($productsTotal);
+
+        $ultimaPagina     = $cantTotal ? ceil($cantTotal/$setMaxResults) : 1;
+
+        $products = $productRepository->findBy(['categoryProduct' => $categoryProduct, 'public' => true], ['id' => 'DESC'],  $setMaxResults, ($page-1) * $setMaxResults);
+
         return $this->render('default/category_products.html.twig', [
-            'products' => $productRepository->findBy(['categoryProduct' => $categoryProduct, 'public' => true]),
-            'categoria' => $categoryProduct
+            'products' => $products,
+            'categoria' => $categoryProduct,
+            'total' => $ultimaPagina,
+            'current' => $page
+        ]);
+    }
+
+    /**
+     * @param ProductRepository $productRepository
+     * @param $page
+     * @Route("/producto/pupulares/{page}", name="default_product_pupulate", defaults={"page"=1})
+     */
+    public function productPopulate(ProductRepository $productRepository, $page)
+    {
+        $productsTotal = $productRepository->findBy(['public' => true], ['visita' => 'DESC']);
+        $setMaxResults    = Product::page;
+        $cantTotal        = count($productsTotal);
+
+        $ultimaPagina     = $cantTotal ? ceil($cantTotal/$setMaxResults) : 1;
+        $products = $productRepository->findBy(['public' => true], ['visita' => 'DESC'], $setMaxResults, ($page-1) * $setMaxResults);
+
+        return $this->render('default/_products_populate.html.twig', [
+            'products' => $products,
+            'total' => $ultimaPagina,
+            'current' => $page
+        ]);
+    }
+
+    /**
+     * @param ProductRepository $productRepository
+     * @param $page
+     * @Route("/producto/los-mas-gustado/{page}", name="default_product_likeless", defaults={"page"=1})
+     */
+    public function productLikeLess(ProductRepository $productRepository, $page)
+    {
+        $productsTotal = $productRepository->findBy(['public' => true], ['likeCount' => 'DESC']);
+        $setMaxResults    = Product::page;
+        $cantTotal        = count($productsTotal);
+
+        $ultimaPagina     = $cantTotal ? ceil($cantTotal/$setMaxResults) : 1;
+        $products = $productRepository->findBy(['public' => true], ['likeCount' => 'DESC'], $setMaxResults, ($page-1) * $setMaxResults);
+
+        return $this->render('default/_products_likeless.html.twig', [
+            'products' => $products,
+            'total' => $ultimaPagina,
+            'current' => $page
+        ]);
+    }
+
+    /**
+     * @param CategoryProductRepository $categoryProductRepository
+     * @Route("/productos/", name="default_categoria")
+     */
+    public function categoriaProductoAll(CategoryProductRepository $categoryProductRepository)
+    {
+        return $this->render('default/_categoria_productos.html.twig', [
+            'categorias' => $categoryProductRepository->findBy(['active' => true])
+        ]);
+    }
+
+    /**
+     * @Route("/resultado/buscador/{cadena}/{page}", name="default_search_product", defaults={"cadena"="","page"=1})
+     * @param ProductRepository $productRepository
+     * @param $cadena
+     * @param $page
+     * @return Response
+     */
+    public function productSearch(ProductRepository $productRepository, $cadena, $page)
+    {
+        $productsTotal = $productRepository->findBuscador($cadena);
+        $setMaxResults    = Product::page;
+        $cantTotal        = count($productsTotal);
+
+        $ultimaPagina     = $cantTotal ? ceil($cantTotal/$setMaxResults) : 1;
+
+        $products = $productRepository->findBuscador($cadena, ($page-1) * $setMaxResults, $setMaxResults);
+
+        return $this->render('default/_product_search.html.twig', [
+            'products' => $products,
+            'cadena' => $cadena,
+            'total' => $ultimaPagina,
+            'current' => $page
         ]);
     }
 
@@ -202,7 +294,7 @@ class DefaultController extends AbstractController
     {
         $blogsTotal = $blogRepository->findBy(['public' => true], ['id' => 'DESC']);
 
-        $setMaxResults    = 1;
+        $setMaxResults    = Blog::page;
         $cantTotal        = count($blogsTotal);
 
         $ultimaPagina     = $cantTotal ? ceil($cantTotal/$setMaxResults) : 1;
@@ -231,7 +323,7 @@ class DefaultController extends AbstractController
     {
         $blogsTotal = $blogRepository->findBy(['category' => $categoryProduct, 'public' => true], ['id' => 'DESC']);
 
-        $setMaxResults    = 1;
+        $setMaxResults    = Blog::page;
         $cantTotal        = count($blogsTotal);
 
         $ultimaPagina     = $cantTotal ? ceil($cantTotal/$setMaxResults) : 1;
@@ -261,7 +353,7 @@ class DefaultController extends AbstractController
     {
         $blogsTotal = $blogRepository->findBlogTag($tag->getSlug());
 
-        $setMaxResults    = 1;
+        $setMaxResults    = Blog::page;
         $cantTotal        = count($blogsTotal);
 
         $ultimaPagina     = $cantTotal ? ceil($cantTotal/$setMaxResults) : 1;
@@ -312,5 +404,32 @@ class DefaultController extends AbstractController
         $entityManager->flush();
 
         return new JsonResponse('');
+    }
+
+    /**
+     * @param ProductRepository $productRepository
+     * @Route("/footer/products", name="default_footer_product", methods={"POST"})
+     */
+    public function footerProducto(Request $request, ProductRepository $productRepository)
+    {
+        if (!$request->isXmlHttpRequest()){
+            throw $this->createNotFoundException();
+        }
+
+        $list = [];
+
+        $products = $productRepository->findBy(['public' => true], ['visita' => 'DESC'], 6);
+
+        foreach ($products as $product) {
+            $list [] = [
+                'id' => $product->getId(),
+                'slug' => $product->getSlug(),
+                'name' => $product->getName(),
+                'image' => '/images/'.$product->getImage(),
+                'url' => $this->generateUrl('default_product', [ 'slug' => $product->getSlug() ])
+            ];
+        }
+
+        return new JsonResponse($list, 200);
     }
 }

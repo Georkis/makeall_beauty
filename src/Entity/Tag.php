@@ -42,10 +42,16 @@ class Tag
      */
     private $blogs;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="tag")
+     */
+    private $products;
+
     public function __construct()
     {
         $this->active = true;
         $this->blogs = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function __toString(): ?string
@@ -128,5 +134,32 @@ class Tag
     public function setSlug($slug): void
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeTag($this);
+        }
+
+        return $this;
     }
 }

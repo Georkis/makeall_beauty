@@ -2,7 +2,12 @@
 
 {% block title %}{% endblock %}
 {% block metas %}
-
+    <meta name="keywords" content="
+        {% for t in blog.tags %}
+            {{ t }}
+        {% endfor %}
+    ">
+    <meta name="description" content="{{ blog.lead | Truncar(100) }}">
 {% endblock %}
 
 {% block body %}

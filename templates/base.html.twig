@@ -54,7 +54,8 @@
         <nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
 
             <div class="container-fluid">
-                <a href="{{ path('default') }}"><i class="fa fa-sitemap"></i> Visitar sitio</a>
+                <a href="{{ path('default') }}" class="btn btn-dark btn-lg mr-2"><i class="fa fa-sitemap"></i> Visitar sitio</a>
+                <button id="btn-sitemap" class="btn btn-secondary btn-lg"><i class="fa fa-spinner fa-pulse d-none" id="cargando-sitemap"></i> Generar Sitemap</button>
                 <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                     <li class="nav-item toggle-nav-search hidden-caret">
                         <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
@@ -493,6 +494,51 @@
 </script>
 <script src="{{ asset('plugins/select2/js/select2.full.js') }}"></script>
 <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
+<script>
+    $.get('{{ path('dashboard_mantenimiento') }}', function (response) {
+        if (response == 1){
+            $('#mtto').addClass('text-success').addClass('fa-toggle-on');
+        }else{
+            $('#mtto').addClass('text-danger').addClass('fa-toggle-off');
+        }
+    });
+    $('#mtto').click(function (event) {
+        event.preventDefault();
+        $.post('{{ path('dashboard_mantenimiento') }}', function (response) {
+            if (response == 1){
+                $('#mtto').removeClass('text-danger');
+                $('#mtto').addClass('text-success').removeClass('fa-toggle-off').addClass('fa-toggle-on');
+                notifyAlert('success', 'Se ha puesto el sitio web publico a Internet');
+            }else{
+                $('#mtto').removeClass('text-success');
+                $('#mtto').addClass('text-danger').removeClass('fa-toggle-on').addClass('fa-toggle-off');
+                notifyAlert('warning', 'Se ha puesto el sitio en mantenimiento');
+            }
+        });
+    });
+    $('#btn-sitemap').click(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '{{ path('make_sitemap') }}',
+            method: 'POST',
+            beforeSend: function () {
+                $('#cargando-sitemap').removeClass('d-none');
+                $('#btn-sitemap').attr('disabled');
+            },
+            statusCode: {
+                200: function () {
+                    notifyAlert('success', 'Se ha creado satisfactoriamente el mapa del sitio');
+                    $('#btn-sitemap').removeAttr('disabled');
+                    $('#cargando-sitemap').addClass('d-none');
+                },
+                400: function (response) {
+                    $('#cargando-sitemap').addClass('d-none');
+                    notifyAlert('danger', response.responseJSON);
+                }
+            }
+        });
+    });
+</script>
 {% block js %}{% endblock %}
 </body>
 </html>

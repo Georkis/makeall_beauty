@@ -3,7 +3,6 @@
 {% block metas %}
     <meta name="keywords" content="Belleza, utilidades de belleza, cosmético, piel suave, productos de bellezas" />
     <meta name="description" content="Sitio web de publicidad de articulos de belleza" />
-    <meta name="author" content="Georkis Santiesteban by MakeAllBeauty" />
 {% endblock %}
 {% block title %}Productos de Belleza{% endblock %}
 {% block body %}
@@ -16,12 +15,12 @@
                             <div class="col-lg-8 col-12">
                                 <h6 class="text-uppercase letter-space-2 text-theme2 font-w-6">Make All Beauty</h6>
                                 <h1 class="mb-4">Invierte en ti sin culpa</h1>
-                                <div class="btn-box mt-5">
-                                    <a class="btn btn-theme" href="#"> <span>Discuss Your Project</span>
-                                    </a>
-                                    <a class="btn btn-dark" href="#"> <span>Our Services</span>
-                                    </a>
-                                </div>
+{#                                <div class="btn-box mt-5">#}
+{#                                    <a class="btn btn-theme" href="#"> <span>Discuss Your Project</span>#}
+{#                                    </a>#}
+{#                                    <a class="btn btn-dark" href="#"> <span>Our Services</span>#}
+{#                                    </a>#}
+{#                                </div>#}
                             </div>
                         </div>
                     </div>
@@ -34,12 +33,12 @@
                             <div class="col-lg-8 col-12">
                                 <h6 class="text-uppercase letter-space-2 text-theme2 font-w-6">Empieza ahora</h6>
                                 <h2 class="mb-4 text-white">Yo puedo convertir mi pasión en mi negocio</h2>
-                                <div class="btn-box mt-5">
-                                    <a class="btn btn-theme" href="#"> <span>Discuss Your Project</span>
-                                    </a>
-                                    <a class="btn btn-dark" href="#"> <span>Our Services</span>
-                                    </a>
-                                </div>
+{#                                <div class="btn-box mt-5">#}
+{#                                    <a class="btn btn-theme" href="#"> <span>Discuss Your Project</span>#}
+{#                                    </a>#}
+{#                                    <a class="btn btn-dark" href="#"> <span>Our Services</span>#}
+{#                                    </a>#}
+{#                                </div>#}
                             </div>
                         </div>
                     </div>
@@ -73,6 +72,87 @@
             </div>
         </div>
     </section>
+    <!--product start-->
+    <section class="p-0">
+        <div class="container-fluid ps-0">
+            <div class="row">
+                <div class="col-11">
+                    <div class="dark-bg p-md-7 p-4 pb-10 rounded-end">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="section-title">
+                                    <h6 class="text-theme text-uppercase letter-space-1">Productos más populares</h6>
+                                    <h2 class="title">Eres libre para decidir, <span class="font-w-3">No lo encontrarás a mejor precio.</span></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pe-0">
+            <div class="row mt-n8">
+                <div class="col-11 ms-auto">
+                    <div class="owl-carousel no-pb popup-gallery" data-dots="false" data-items="4" data-md-items="3" data-sm-items="2" data-xs-items="1" data-margin="20" data-autoplay="true">
+                        {% for p in productos %}
+                        <div class="item">
+                            <div class="project-item position-relative overflow-hidden rounded">
+                                <img class="img-center w-100" src="{{ asset('images/' ~ p.image) }}" alt="">
+                                <a class="popup-img" href="{{ asset('images/' ~ p.image) }}"> <i class="las la-search-plus"></i>
+                                </a>
+                                <div class="project-title"> <span class="mb-2 text-white">{{ p }}</span>
+                                    <h4 class="text-theme">{{ p.lead }}</h4>
+                                    <a class="btn btn-dark btn-sm" href="{{ path('default_product', { 'slug' : p.slug }) }}">Leer más</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--project end-->
+    <!--blog start-->
+    <section>
+        <div class="container-fluid pe-lg-0">
+            <div class="row">
+                <div class="col-lg-4 ms-auto">
+                    <div class="section-title mb-0">
+                        <h6 class="text-theme2 text-uppercase letter-space-1">Articulos recientes</h6>
+                        <h2 class="title">Listado de articulos <span class="font-w-3 d-md-block">Productos de primera necesidad </span></h2>
+                        <p class="lead"></p>
+                    </div>
+                </div>
+                <div class="col-lg-7 mt-6 mt-lg-0">
+                    <div class="owl-carousel" data-items="2" data-sm-items="1" data-autoplay="true">
+                        {% for b in blogs %}
+                        <div class="item">
+                                <div class="post overflow-hidden rounded mx-4">
+                                    <div class="post-image overflow-hidden position-relative">
+                                        <img class="img-fluid rounded-top" src="{{ asset('images/' ~ b.image) }}" alt="{{ b }}"> <a class="post-link" href="{{ path('default_blog_single', { 'slug' : b.slug }) }}"><i class="las la-link"></i></a>
+                                    </div>
+                                    <div class="post-desc p-4">
+                                        <div class="post-title">
+                                            <h4>{{ b.title }}</h4>
+                                        </div>
+                                        {{ b.lead }}
+                                        <div class="post-meta pt-3 border-top border-light">
+                                            <ul class="list-inline">
+                                                <li><a class="text-secondary" href="{{ path('default_blog_single', { 'slug' : b.slug }) }}"><i class="las la-link me-1 text-theme"></i>{{ b.category }}</a></li>
+                                                <li><i class="lar la-calendar-alt me-1 text-theme"></i><time>{{ b.date | date('d M, Y') }}</time></li>
+                                                <li><a onclick="likePlus(this); return false;" href="{{ path('default_like_blog', { 'slug' : b.slug }) }}"><i class="far fa-heart"></i> {{ b.likeless }}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!--about end-->
+    <!--blog end-->
 {% endblock %}

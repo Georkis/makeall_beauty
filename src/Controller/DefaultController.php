@@ -57,7 +57,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/categoria/producto/{slug}/{page}", name="default_categoria_producto", defaults={"page"=1})
+     * @Route("/categoria/producto/{id}/{slug}/{page}", name="default_categoria_producto", defaults={"page"=1})
      * @param CategoryProduct $categoryProduct
      * @param ProductRepository $productRepository
      * @param $page

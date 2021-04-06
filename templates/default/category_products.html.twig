@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col">
                     <div class="title-text-bg">{{ categoria }}</div>
-                    <h1 class="text-theme">{{ categoria }}</h1>
+                    <h1 class="text-theme">{{ categoria | Truncar(20) }}</h1>
                     <p class="text-white mt-2 mb-0">{{ categoria.lead }}</p>
                 </div>
             </div>

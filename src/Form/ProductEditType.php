@@ -41,7 +41,7 @@ class ProductEditType extends AbstractType
                 'class' => CategoryProduct::class,
                 'placeholder' => 'Seleccionar'
             ])
-            ->add('tag', Select2EntityType::class, [
+            ->add('tags', Select2EntityType::class, [
                 'remote_route' => 'tag_json_list',
                 'class' => Tag::class,
                 'primary_key' => 'id',

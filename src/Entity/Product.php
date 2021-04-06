@@ -105,9 +105,9 @@ class Product
     private $productViewImages;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="products")
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="products", cascade={"persist"})
      */
-    private $tag;
+    private $tags;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -125,7 +125,7 @@ class Product
         $this->comments = new ArrayCollection();
         $this->public = false;
         $this->productViewImages = new ArrayCollection();
-        $this->tag = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -335,30 +335,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|Tag[]
-     */
-    public function getTag(): Collection
-    {
-        return $this->tag;
-    }
-
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tag->contains($tag)) {
-            $this->tag[] = $tag;
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        $this->tag->removeElement($tag);
-
-        return $this;
-    }
-
     public function getLead(): ?string
     {
         return $this->lead;
@@ -367,6 +343,30 @@ class Product
     public function setLead(string $lead): self
     {
         $this->lead = $lead;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tags->removeElement($tag);
 
         return $this;
     }

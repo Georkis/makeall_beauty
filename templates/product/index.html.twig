@@ -57,7 +57,7 @@
                                 <td>
                                     <a href="{{ path('producto_cropper', { 'id' : product.id }) }}">
                                         {% if product.image %}
-                                            <img src="{{ asset('images/' ~ product.image) }}" class="img-fluid">
+                                            <img src="{{ asset('images/' ~ product.image) }}" class="img-fluid img-50">
                                         {% else %}
                                             <i class="fa fa-image text-danger fa-3x"></i>
                                         {% endif %}

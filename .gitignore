@@ -4,7 +4,6 @@
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
 /public/images/
 /.idea
 /home.html
@@ -26,3 +25,4 @@
 ###< lexik/jwt-authentication-bundle ###
 /public/sitemap.xml
 /public/sitemap_original.xml
+/todo

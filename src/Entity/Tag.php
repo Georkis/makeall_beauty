@@ -43,7 +43,7 @@ class Tag
     private $blogs;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="tag")
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="tags", cascade={"persist"})
      */
     private $products;
 

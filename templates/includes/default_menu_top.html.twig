@@ -17,7 +17,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-item" href="{{ path('default_categoria') }}">Todos los departamentos</a></li>
                     {% for cp in categoryProducts %}
-                        <li><a class="nav-item" href="{{ path('default_categoria_producto', { 'slug' : cp.slug }) }}">{{ cp }}</a></li>
+                        <li><a class="nav-item" href="{{ path('default_categoria_producto', { 'id' : cp.id, 'slug' : cp.slug }) }}">{{ cp }}</a></li>
                     {% endfor %}
                 </ul>
             </li>

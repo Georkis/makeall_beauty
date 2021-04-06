@@ -187,7 +187,7 @@ class DefaultController extends AbstractController
 
     /**
      * @param Product $product
-     * @Route("/producto/{slug}", name="default_product")
+     * @Route("/producto/{id}/{slug}", name="default_product")
      */
     public function product(Product $product, ProductViewImageRepository $productViewImageRepository)
     {
@@ -426,7 +426,7 @@ class DefaultController extends AbstractController
                 'slug' => $product->getSlug(),
                 'name' => $product->getName(),
                 'image' => '/images/'.$product->getImage(),
-                'url' => $this->generateUrl('default_product', [ 'slug' => $product->getSlug() ])
+                'url' => $this->generateUrl('default_product', [ 'id' => $product->getId(), 'slug' => $product->getSlug() ])
             ];
         }
 

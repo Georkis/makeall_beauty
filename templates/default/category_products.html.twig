@@ -69,12 +69,12 @@
                                     <div class="product-img position-relative">
                                         <img class="img-fluid" src="{{ asset('images/' ~ p.image) }}" alt="{{ p }}">
                                         <div class="product-link d-flex align-items-center justify-content-center position-absolute w-100 dark-bg">
-                                            <button onclick="window.location.href = $(this).attr('data-url')" data-url="{{ path('default_product', { 'slug' : p.slug }) }}" class="btn-compare" type="button"><i class="las la-link"></i></button>
+                                            <button onclick="window.location.href = $(this).attr('data-url')" data-url="{{ path('default_product', { 'id' : p.id, 'slug' : p.slug }) }}" class="btn-compare" type="button"><i class="las la-link"></i></button>
                                             <button onclick="likePlus(this); return false;" href="{{ path('default_like_product', {'id': p.id}) }}" class="btn-wishlist" type="button"><i class="lar la-heart"></i></button>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="product-title"><a href="{{ path('default_product', { 'slug' : p.slug }) }}">{{ p }}</a>
+                                        <div class="product-title"><a href="{{ path('default_product', { 'id' : p.id, 'slug' : p.slug }) }}">{{ p }}</a>
                                         </div>
                                         <div class="mt-1"> <span class="product-price">US {{ p.price | number_format(2, '.',',') }}</span>
                                         </div>

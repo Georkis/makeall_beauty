@@ -18,7 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @UniqueEntity(fields={"url"})
- * @UniqueEntity(fields={"slug"})
  */
 class Product
 {

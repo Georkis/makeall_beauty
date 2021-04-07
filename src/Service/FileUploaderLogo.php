@@ -14,11 +14,11 @@ class FileUploaderLogo
         $this->targetDirectory = $targetDirectory;
     }
 
-    public function upload(UploadedFile $file )
+    public function upload(UploadedFile $file, $name = 'logo' )
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-        $fileName =  'logo.' . $file->guessExtension();
+        $fileName =  $name;
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);

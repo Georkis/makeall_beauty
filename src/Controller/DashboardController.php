@@ -8,6 +8,7 @@ use App\Repository\CategoryProductRepository;
 use App\Repository\ConfigRepository;
 use App\Repository\ProductRepository;
 use App\Repository\TagRepository;
+use App\Repository\VisitaPaisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,10 +26,20 @@ class DashboardController extends AbstractController
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, VisitaPaisRepository $visitaPaisRepository): Response
     {
+        $visitaTotal = $visitaPaisRepository->findVisitaTotal();
+        $visitaHoy = $visitaPaisRepository->findVisitaHoy(new \DateTime(date('d-m-Y')));
+        $visitaAntesSieteDias = $visitaPaisRepository->findVisitaBefore('-7 days');
+        $visitaAntesTreintaDias = $visitaPaisRepository->findVisitaBefore('-30 days');
+
         return $this->render('dashboard/index.html.twig', [
-            'products' => $productRepository->findBy([], ['visita' => 'DESC'], 3)
+            'products' => $productRepository->findBy([], ['visita' => 'DESC'], 3),
+            'visitas' => $visitaPaisRepository->findAll(),
+            'visitaTotales' => $visitaTotal,
+            'visitaHoy' => $visitaHoy,
+            'visitaSiete' => $visitaAntesSieteDias,
+            'visitaAntesTreintaDias' => $visitaAntesTreintaDias
         ]);
     }
 
@@ -61,7 +72,7 @@ class DashboardController extends AbstractController
         foreach ($productRepository->findBy(['public' => true]) as $item) {
             $content .= "
             <url>
-                <loc>".$this->generateUrl('default_product', ['slug' => $item->getSlug()], 0)."</loc>
+                <loc>".$this->generateUrl('default_product', ['id' => $item->getId(), 'slug' => $item->getSlug()], 0)."</loc>
                 <lastmod>".date("c")."</lastmod>
                 <priority>0.85</priority>
             </url>
@@ -76,7 +87,7 @@ class DashboardController extends AbstractController
         foreach ($categoryProductRepository->findBy(['active' => true]) as $item){
             $content .= "
             <url>
-                <loc>".$this->generateUrl('default_categoria_producto', ['slug' => $item->getSlug()], 0)."</loc>
+                <loc>".$this->generateUrl('default_categoria_producto', ['id' => $item->getId(), 'slug' => $item->getSlug()], 0)."</loc>
                 <lastmod>".date("c")."</lastmod>
                 <priority>0.78</priority>
             </url>

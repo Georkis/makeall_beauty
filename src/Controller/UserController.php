@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserEditType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -98,5 +101,40 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
+    }
+
+    /**
+     * @param User $user
+     * @Route("/perfil/{username}", name="user_perfil")
+     * @Security("username == user.getUsername()")
+     */
+    public function perfil(Request $request, User $user, FileUploader $fileUploader)
+    {
+        $form = $this->createForm(UserEditType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $file = $form['file']->getData();
+
+            if ($file){
+                $filename = $fileUploader->upload($file);
+                $user->setImage($filename);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Se ha guardado satisfactoriamente el perfil');
+
+            return $this->redirectToRoute('user_perfil', [
+                'username' => $user->getUsername()
+            ]);
+        }
+
+        return $this->render('user/perfil.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
     }
 }

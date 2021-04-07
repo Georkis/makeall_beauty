@@ -100,8 +100,9 @@
                                 <img class="img-center w-100" src="{{ asset('images/' ~ p.image) }}" alt="">
                                 <a class="popup-img" href="{{ asset('images/' ~ p.image) }}"> <i class="las la-search-plus"></i>
                                 </a>
-                                <div class="project-title"> <span class="mb-2 text-white">{{ p }}</span>
-                                    <h4 class="text-theme">{{ p.lead }}</h4>
+                                <div class="project-title"> <span class="mb-2 text-white">{{ p | Truncar(40) }}</span>
+                                    <h4 class="text-theme">{{ p.lead | Truncar(50) }}</h4>
+                                    <p><small class="text-warning"><i class="flaticon-agenda"></i> {{ p.categoryProduct }}</small></p>
                                     <a class="btn btn-dark btn-sm" href="{{ path('default_product', { 'slug' : p.slug }) }}">Leer más</a>
                                 </div>
                             </div>

@@ -28,14 +28,12 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"producto","buscador"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
-     * @Groups({"producto","buscador"})
      */
     private $name;
 
@@ -43,7 +41,6 @@ class Product
      * @ORM\ManyToOne(targetEntity=CategoryProduct::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
-     * @Groups({"producto","buscador"})
      */
     private $categoryProduct;
 
@@ -61,7 +58,6 @@ class Product
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
-     * @Groups({"producto"})
      */
     private $description;
 
@@ -69,26 +65,22 @@ class Product
      * @ORM\Column(type="string", length=150, unique=true)
      * @Assert\NotBlank()
      * @Assert\Url()
-     * @Groups({"producto","buscador"})
      */
     private $url;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
-     * @Groups({"producto","buscador"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
-     * @Groups({"producto","buscador"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"producto"})
      */
     private $public;
 
@@ -104,7 +96,6 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"producto","buscador"})
      */
     private $slug;
 
@@ -120,6 +111,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $lead;
 

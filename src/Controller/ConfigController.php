@@ -10,6 +10,7 @@ use App\Service\FileUploaderLogo;
 use Psr\Http\Message\UploadedFileInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -113,15 +114,20 @@ class ConfigController extends AbstractController
      */
     public function uploadLogo(Request $request, FileUploaderLogo $uploadedFile, ContainerInterface $container)
     {
+        $choices = ['Logo superior' => 'logo.png','Logo del pie de pagina' => 'logo-white.png','Favicon' => 'favicon.ico'];
         $form = $this->createFormBuilder()
+            ->add('lugar', ChoiceType::class, [
+                'choices' => $choices,
+                'placeholder' => 'Seleccionar'
+            ])
             ->add('logo', FileType::class, [
                 'attr' => [
                     'accept' => 'image/png'
                 ],
                 'constraints' => new Image(
                     [
-                        'mimeTypes' => 'image/png',
-                        'mimeTypesMessage' => 'Debe ser png'
+                        'mimeTypes' => ['image/png','image/ico'],
+                        'mimeTypesMessage' => 'Debe ser png o ico'
                     ]
                 ),
             ])->getForm();
@@ -129,9 +135,10 @@ class ConfigController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             $file = $form['logo']->getData();
+            $name = $form['lugar']->getData();
 
             if ($file){
-                $uploadedFile->upload($file);
+                $uploadedFile->upload($file, $name);
             }
 
             $this->addFlash('success', 'Se ha subido la imagen satisfactoriamente!');

@@ -403,7 +403,7 @@ class DefaultController extends AbstractController
         $entityManager->persist($blog);
         $entityManager->flush();
 
-        return new JsonResponse('');
+        return new JsonResponse($blog->getLikeless(), 200);
     }
 
     /**

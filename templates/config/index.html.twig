@@ -3,7 +3,7 @@
 {% block title %}Config index{% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ asset('assets/css/responsive.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.dataTables.min.css') }}">
 {% endblock %}
 {% block body %}
     <div class="page-header">
@@ -27,37 +27,43 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools float-right">
-                        <a href="{{ path('config_new') }}" class="btn btn-secondary btn-xs"><i class="fa fa-plus-circle"></i> Nuevo</a>
+                        <a href="{{ path('config_new') }}" class="btn btn-secondary btn-xs"><i
+                                    class="fa fa-plus-circle"></i> Nuevo</a>
+                        <a href="{{ path('config_logo') }}" class="btn btn-xs btn-outline-warning">Upload logo</a>
                     </div>
                 </div>
                 <div class="card-body table-responsive">
 
                     <table class="table table-striped" id="basic-datatables">
                         <thead>
-                            <tr>
-                                                <th>Id</th>
-                                                <th>Nombre</th>
-                                                <th>Valor</th>
-                                                <th>Descripcion</th>
-                                                <th>Acciones</th>
-                            </tr>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Valor</th>
+                            <th>Descripcion</th>
+                            <th>Acciones</th>
+                        </tr>
                         </thead>
                         <tbody>
                         {% for config in configs %}
                             <tr>
-                                                <td>{{ config.id }}</td>
-                                                <td>{{ config.nombre }}</td>
-                                                <td>{{ config.valor }}</td>
-                                                <td>{{ config.descripcion }}</td>
-                                                <td>
+                                <td>{{ config.id }}</td>
+                                <td>{{ config.nombre }}</td>
+                                <td>{{ config.valor }}</td>
+                                <td>{{ config.descripcion }}</td>
+                                <td>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-dark btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="d-none"><i class="fa fa-spinner fa-pulse"></i></span> Seleccionar
+                                        <button type="button" class="btn btn-dark btn-xs dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="d-none"><i class="fa fa-spinner fa-pulse"></i></span>
+                                            Seleccionar
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a href="{{ path('config_show', {'id': config.id}) }}" class="dropdown-item"><i class="fa fa-list"></i> Detalle</a>
-                                            <a href="{{ path('config_edit', {'id': config.id}) }}" class="dropdown-item"><i class="fa fa-edit"></i> Editar</a>
-                <!--                            <div class="dropdown-divider"></div>-->
+                                            <a href="{{ path('config_show', {'id': config.id}) }}"
+                                               class="dropdown-item"><i class="fa fa-list"></i> Detalle</a>
+                                            <a href="{{ path('config_edit', {'id': config.id}) }}"
+                                               class="dropdown-item"><i class="fa fa-edit"></i> Editar</a>
+                                            <!--                            <div class="dropdown-divider"></div>-->
                                         </div>
                                     </div>
                                 </td>
@@ -75,28 +81,28 @@
     </div>
 {% endblock %}
 {% block js %}
-<script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
-<script src="{{ asset('assets/js/dataTables.responsive.min.js') }}"></script>
-<script>
-    $('#basic-datatables').DataTable({
-        "language": {
-            "paginate": {
-                "first": "Primera pagina",
-                "last": "Última pagina",
-                "previous": "Anterior",
-                "next": "Siguiente"
+    <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.responsive.min.js') }}"></script>
+    <script>
+        $('#basic-datatables').DataTable({
+            "language": {
+                "paginate": {
+                    "first": "Primera pagina",
+                    "last": "Última pagina",
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                },
+                "zeroRecords": "No hay registro que mostrar",
+                "emptyTable": "No hay datos",
+                "info": "Mostrar pagina _PAGE_ of _PAGES_",
+                "infoEmpty": "No hay entradas que mostrar",
+                "loadingRecords": "Espere por favor...",
+                "search": "Buscar:",
+                "zeroRecords": "No hay registro que mostrar",
+                "sLengthMenu": "Mostrar _MENU_ entradas",
+                "sInfoFiltered": "(filtrado de _MAX_ total de entradas)",
             },
-            "zeroRecords": "No hay registro que mostrar",
-            "emptyTable": "No hay datos",
-            "info": "Mostrar pagina _PAGE_ of _PAGES_",
-            "infoEmpty": "No hay entradas que mostrar",
-            "loadingRecords": "Espere por favor...",
-            "search": "Buscar:",
-            "zeroRecords": "No hay registro que mostrar",
-            "sLengthMenu": "Mostrar _MENU_ entradas",
-            "sInfoFiltered": "(filtrado de _MAX_ total de entradas)",
-        },
-        "responsive": true,
-    });
-</script>
+            "responsive": true,
+        });
+    </script>
 {% endblock %}

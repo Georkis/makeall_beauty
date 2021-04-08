@@ -22,7 +22,7 @@ class Mtto
     public function statusSite()
     {
         $user = $this->security->getUser();
-        $mantenimiento = $this->manager->getRepository(Config::class)->findOneBy(['nombre' => 'app-mantenimiento'])->getValor();
+        $mantenimiento = $this->manager->getRepository(Config::class)->findOneBy(['nombre' => 'app-mtto'])->getValor();
 
         return (int)$mantenimiento && !$user;
     }

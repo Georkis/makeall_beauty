@@ -13,9 +13,7 @@ use App\Repository\ProductRepository;
 use App\Repository\ProductViewImageRepository;
 use App\Repository\TagRepository;
 use App\Repository\VisitaPaisRepository;
-use App\Service\Mtto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -216,15 +214,10 @@ class DefaultController extends AbstractController
      * @param Request $request
      * @param Session $session
      * @param VisitaPaisRepository $visitaPaisRepository
-     * @param Mtto $mtto
      * @return RedirectResponse|Response
      */
-    public function visitaPais(Request $request, Session $session, VisitaPaisRepository $visitaPaisRepository, Mtto $mtto)
+    public function visitaPais(Request $request, Session $session, VisitaPaisRepository $visitaPaisRepository)
     {
-        if ($mtto->statusSite() === 1){
-            return $this->redirectToRoute('default_mantenimiento');
-        }
-
         $ipCliente = substr($request->getClientIp(), 0, strripos($request->getClientIp(), ".")).'.0';
         $ch = curl_init("https://api.ipgeolocationapi.com/geolocate/".$ipCliente);
 

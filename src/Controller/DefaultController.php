@@ -43,7 +43,8 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'categories' => $categoryProductRepository->findBy(['active' => true], ['name' => 'ASC']),
             'productos' => $productRepository->findBy(['public' => true], ['visita' => 'DESC'], 8),
-            'blogs' => $blogRepository->findBy([ 'public' => true ], ['id' => 'DESC'])
+            'blogs' => $blogRepository->findBy([ 'public' => true ], ['id' => 'DESC']),
+            'portafolio' => $productRepository->findBy(['public' => true])
         ]);
     }
 

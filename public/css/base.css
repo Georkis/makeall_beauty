@@ -55,7 +55,7 @@ button, input {
 /* ------------------------
     Transition
 ------------------------*/
-a, i, .btn, button, img, span, .dropdown-item, .nav-link.dropdown-toggle::after, .social-icons li:hover a, .owl-item {
+a, i, .btn, button, .project-item > img, .project-title > span, .dropdown-item, .nav-link.dropdown-toggle::after, .social-icons li:hover a, .owl-item {
   -webkit-transition: all 0.5s ease-in-out 0s;
   -moz-transition: all 0.5s ease-in-out 0s;
   -o-transition: all 0.5s ease-in-out 0s;

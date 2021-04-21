@@ -184,14 +184,6 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            $cantidad = $product->getProductViewImages()->count();
-            if ($cantidad === 3){
-                $this->addFlash('danger', 'Ha alcanzado el limite de subir imagen');
-
-                return $this->redirectToRoute('producto_view_images_new', [
-                    'id' => $product->getId()
-                ]);
-            }
 
             $image = $form['image']->getData();
             if ($image) {

@@ -26,6 +26,9 @@
                     <div class="exzoom hidden" id="exzoom">
                         <div class="exzoom_img_box">
                             <ul class='exzoom_img_ul'>
+                                <li>
+                                    <img src="{{ asset('images/' ~ product.image) }}" alt="{{ product }}">
+                                </li>
                                 {% for v in views %}
                                     <li>
                                         <img class="img-fluid w-100" src="{{ asset('images/' ~ v.image) }}" alt="{{ product }}" />
@@ -53,7 +56,6 @@
                             <li><span class="text-black"> Categoría :</span> {{ product.categoryProduct }}</li>
                         </ul>
                         {{ product.description | raw }}
-
                         <div class="mt-5">
                             <a class="btn btn-dark" href="{{ product.url }}" target="_blank"><i class="las la-shopping-cart me-2"></i>Ir de compra</a>
                         </div>

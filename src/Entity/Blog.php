@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Blog
 {
-    const page = 1;
+    const page = 12;
 
     /**
      * @ORM\Id

@@ -1,14 +1,25 @@
 function likePlus(element) {
     const $url = element.href;
-    if (!$url){
-        return;
+    const $dataUrl = $(element).attr('data-url');
+
+    if ($url){
+        $.ajax({
+            url: $url,
+            method: 'POST',
+            beforeSend: function () {
+                $(element).removeAttr('href');
+
+            }
+        });
     }
-    $.ajax({
-        url: $url,
-        method: 'POST',
-        beforeSend: function () {
-            $(element).attr('disabled','disabled');
-            $(element).removeAttr('href');
-        }
-    });
+
+    if ($dataUrl){
+        $.ajax({
+            url: $url,
+            method: 'POST',
+            beforeSend: function () {
+                $(element).attr('disabled','disabled');
+            }
+        });
+    }
 }

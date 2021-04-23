@@ -270,7 +270,7 @@ section {
 
 .fullscreen-banner {
   position: relative;
-  min-height: 750px;
+  min-height: 250px;
 }
 
 [data-bg-img] {
@@ -1076,4 +1076,7 @@ form {
 }
 .box-shadow:hover {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
+}
+.bg-fixture {
+  background-color: #f5f5f5;
 }

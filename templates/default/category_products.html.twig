@@ -70,7 +70,7 @@
                                         <img class="img-fluid" src="{{ asset('images/' ~ p.image) }}" alt="{{ p }}">
                                         <div class="product-link d-flex align-items-center justify-content-center position-absolute w-100 dark-bg">
                                             <button onclick="window.location.href = $(this).attr('data-url')" data-url="{{ path('default_product', { 'id' : p.id, 'slug' : p.slug }) }}" class="btn-compare" type="button"><i class="las la-link"></i></button>
-                                            <button onclick="likePlus(this); return false;" href="{{ path('default_like_product', {'id': p.id}) }}" class="btn-wishlist" type="button"><i class="lar la-heart"></i></button>
+                                            <button data-url="{{ path('default_like_product', {'id': p.id}) }}" onclick="likePlus(this); return false;" class="btn-wishlist" type="button"><i class="lar la-heart"></i></button>
                                         </div>
                                     </div>
                                     <div class="card-body">

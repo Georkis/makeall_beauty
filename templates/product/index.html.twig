@@ -78,6 +78,7 @@
                                        class="text-secondary ml-2"><i class="fa fa-list fa-lg"></i> </a>
                                     <a title="Editar" href="{{ path('product_edit', {'id': product.id}) }}"
                                        class="text-warning ml-2"><i class="fa fa-edit fa-lg"></i> </a>
+                                    <a onclick="ejecutar(this, 'Usted va a eliminar el producto', '{{ product.name }}'); return false;" href="{{ path('product_eliminar', {'id': product.id}) }}" class="text-danger" title="Eliminar producto"><i class="fa fa-trash fa-lg ml-1"></i></a>
                                 </td>
                             </tr>
                         {% else %}
@@ -96,7 +97,7 @@
     <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.responsive.min.js') }}"></script>
     <script>
-        $('#basic-datatables').DataTable({
+        let datatable = $('#basic-datatables').DataTable({
             "language": {
                 "paginate": {
                     "first": "Primera pagina",

@@ -57,26 +57,35 @@
                     </div>
                 </div>
             </div>
+
+            {% for p in categories %}
             <div class="row">
-                {% for p in categories %}
+                    <h2>{{ p }}</h2>
+                {% for pc in p.products %}
                     <div class="col-lg-3 col-md-4">
                         <div class="team-member p-4 rounded box-shadow">
                             <div class="team-description pt-2 pb-2 d-flex justify-content-between align-items-center">
                                 <div>
                                     <h5>
-                                        <a href="{{ path('default_categoria_producto', { 'id' : p.id, 'slug' : p.slug }) }}">{{ p }}</a>
+                                        <a href="{{ path('default_product', { 'id' : pc.id, 'slug' : pc.slug }) }}">{{ pc }}</a>
                                     </h5>
                                 </div>
                             </div>
                             <div class="team-images">
-                                <a href="{{ path('default_categoria_producto', { 'id' : p.id, 'slug' : p.slug }) }}"><img class="img-fluid rounded" src="{{ asset('images/' ~ p.image) }}" alt="{{ p }}"></a>
+                                <a href="{{ path('default_product', { 'id' : pc.id, 'slug' : pc.slug }) }}"><img class="img-fluid rounded" src="{{ asset('images/' ~ pc.image) }}" alt="{{ pc }}"></a>
                             </div>
                             <div class="pt-3">
-                                <a class="text-theme2" href="{{ path('default_categoria_producto', { 'id' : p.id, 'slug' : p.slug }) }}">Compra ahora</a>
+                                <a class="text-theme2" href="{{ path('default_product', { 'id' : pc.id, 'slug' : pc.slug }) }}">Compra ahora</a>
+                            </div>
+                            <div class="pt-2">
+                                US$ {{ pc.price | number_format(2, '.',',') }}
                             </div>
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+                <hr>
+            {% endfor %}
 {#                {% for p in portafolio %}#}
 {#                    <div class="col-lg-3 col-md-4">#}
 {#                        <div class="team-member p-3 rounded box-shadow">#}
@@ -95,7 +104,6 @@
 {#                        </div>#}
 {#                    </div>#}
 {#                {% endfor %}#}
-            </div>
         </div>
     </section>
     <section>
@@ -152,7 +160,7 @@
                 <div class="col-11 ms-auto">
                     <div class="owl-carousel no-pb popup-gallery" data-dots="false" data-items="4" data-md-items="3"
                          data-sm-items="2" data-xs-items="1" data-margin="20" data-autoplay="true">
-                        {% for p in productos %}
+                        {% for p in categories %}
                             <div class="item">
                                 <div class="project-item position-relative overflow-hidden rounded">
                                     <img class="img-center w-100" src="{{ asset('images/' ~ p.image) }}" alt="">
@@ -162,10 +170,8 @@
                                     <div class="project-title"><span
                                                 class="mb-2 text-white">{{ p | Truncar(40) }}</span>
                                         <h4 class="text-theme">{{ p.lead | Truncar(50) }}</h4>
-                                        <p><small class="text-warning"><i
-                                                        class="flaticon-agenda"></i> {{ p.categoryProduct }}</small></p>
                                         <a class="btn btn-dark btn-sm"
-                                           href="{{ path('default_product', {'id' : p.id, 'slug' : p.slug }) }}">Leer
+                                           href="{{ path('default_categoria_producto', {'id' : p.id, 'slug' : p.slug }) }}">Leer
                                             más</a>
                                     </div>
                                 </div>

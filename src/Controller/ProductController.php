@@ -168,8 +168,6 @@ class ProductController extends AbstractController
         }catch (\Exception $exception){
             return new JsonResponse('Ha ocurrido un error '.$exception->getMessage(), 500);
         }
-
-
     }
 
     /**
@@ -232,5 +230,30 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('producto_view_images_new', [
             'id' => $productId
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Product $product
+     * @Route("/{id}/eliminar/", name="product_eliminar")
+     */
+    public function eliminar(Request $request, Product $product, ContainerInterface $container)
+    {
+        if (!$request->isXmlHttpRequest()){
+            throw $this->createNotFoundException();
+        }
+        $imageSource = $container->getParameter('app.images').$product->getImage();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($product);
+
+        try {
+            $entityManager->flush();
+            unlink($imageSource);
+
+            return new JsonResponse('Se ha elimiando satisfactoriamente', 200);
+        }catch (\Exception $exception){
+            return new JsonResponse('Ha ocurrido un error '.$exception->getMessage(), 400);
+        }
     }
 }

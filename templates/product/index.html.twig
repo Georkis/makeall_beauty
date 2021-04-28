@@ -29,6 +29,7 @@
                     <div class="card-tools float-right">
                         <a href="{{ path('product_new') }}" class="btn btn-secondary btn-xs"><i
                                     class="fa fa-plus-circle"></i> Nuevo</a>
+                        <a onclick="ejecutar(this, 'Usted va a resetear los like y las visitas de cada producto', ''); return false;" href="{{ path('product_reset_contadores') }}" class="btn btn-danger btn-xs">Resetear los contadores</a>
                     </div>
                 </div>
                 <div class="card-body table-responsive">

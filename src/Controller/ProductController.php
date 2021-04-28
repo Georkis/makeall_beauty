@@ -256,4 +256,30 @@ class ProductController extends AbstractController
             return new JsonResponse('Ha ocurrido un error '.$exception->getMessage(), 400);
         }
     }
+
+    /**
+     * @param ProductRepository $productRepository
+     * @Route("/reset/counter/", name="product_reset_contadores")
+     */
+    public function resetContadores(ProductRepository $productRepository)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        foreach ($productRepository->findResetCounter() as $item) {
+            /**
+             * @var Product $item
+             */
+            $item->setLikeCount(0)
+                ->setVisita(0);
+            $entityManager->persist($item);
+        }
+
+        try {
+            $entityManager->flush();
+
+            return new JsonResponse(['Se ha reseteado satisfactoriamente el contador de visita del producto y los like'], 200);
+        }catch (\Exception $exception){
+            return new JsonResponse('Ha ocurrido un error '.$exception->getMessage());
+        }
+    }
 }

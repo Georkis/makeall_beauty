@@ -28,6 +28,14 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    public function findResetCounter()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.likeCount > 0')
+            ->orWhere('p.visita > 0')
+            ->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

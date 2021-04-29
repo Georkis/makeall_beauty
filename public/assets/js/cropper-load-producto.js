@@ -18,7 +18,7 @@ let Cropper_js = function () {
         let $dataScaleX = $('#dataScaleX');
         let $dataScaleY = $('#dataScaleY');
         let options = {
-            aspectRatio: 350/400,
+            aspectRatio: 620/720,
             preview: '.img-preview',
             crop: function (e) {
                 $dataX.val(Math.round(e.x));

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- meta tags -->
+    <meta charset="utf-8">
+    <meta name="author" content="Georkis Santiesteban Nuñez" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ app.request.scheme ~ '://' ~ app.request.host  ~ app.request.requestUri }}">
+    {% block metas %}{% endblock %}
+    <!-- Title -->
+    <title>Make All beauty::{% block title %}{% endblock %}</title>
+
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" />
+
+    <!-- inject css start -->
+
+    <!--== bootstrap -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--== fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!--== animate -->
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--== line-awesome -->
+    <link href="{{ asset('css/line-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--== magnific-popup -->
+    <link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--== owl.carousel -->
+    <link href="{{ asset('css/owl.carousel.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--== lightslider -->
+    <link href="{{ asset('css/lightslider.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--== spacing -->
+    <link href="{{ asset('css/spacing.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--== base -->
+    <link href="{{ asset('css/base.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--== style -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--== responsive -->
+    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="canonical" href="{{ app.request.scheme ~ '://' ~ app.request.host  ~ app.request.requestUri }}">
+    <!-- Fonts and icons -->
+    <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
+    <script>
+        WebFont.load({
+            google: {"families":["Lato:300,400,700,900"]},
+            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['{{ asset('assets/css/fonts.min.css') }}']},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+    <!--== jquery -->
+    <script src="{{ asset('js/theme.js') }}"></script>
+    {% block css %}{% endblock %}
+    <!-- inject css end -->
+</head>
+
+<body>
+
+<!-- page wrapper start -->
+
+<div class="page-wrapper">
+
+    <!-- preloader start -->
+
+    <div id="ht-preloader">
+        <div class="clear-loader d-flex align-items-center justify-content-center">
+            <div class="loader">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- preloader end -->
+
+
+    <!--header start-->
+
+    <header id="site-header" class="header">
+        <div class="header-top py-md-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col d-flex align-items-center justify-content-between">
+                        <div class="topbar-link d-none d-md-flex align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="icon d-flex justify-content-center align-items-center me-3"> <i class="flaticon-email text-theme2"></i>
+                                </div>
+                                <div>
+                                    <div><span class="text-black font-w-5">Email</span>  <a class="text-black" href="mailto:themeht23@gmail.com">doalcompany2021@gmail.com</a>
+                                    </div> <small>24/7 actualizamos nuestros productos</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-icons d-none d-lg-inline-block">
+                            <ul class="list-inline">
+                                <li><a href="#"><i class="lab la-facebook-f"></i></a>
+                                </li>
+                                <li><a href="#"><i class="lab la-instagram"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="header-wrap">
+            <div class="container position-relative">
+                <div class="row">
+                    <div class="col">
+                        {{ render(controller('App\\Controller\\DefaultController::menuTop')) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--header end-->
+    <!--body content start-->
+    <div class="page-content">
+
+
+        <!--about start-->
+        {% block body %}{% endblock %}
+
+
+    </div>
+
+    <!--body content end-->
+
+
+    <!--footer start-->
+
+    <footer class="footer dark-bg mt-8">
+        <div class="primary-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="py-md-7 px-md-5 py-5 px-4 mt-n8 rounded-top" data-bg-color="#03060d">
+                            <div class="row">
+                                <div class="col-lg-5 col-12">
+                                    <a class="footer-logo" href="{{ path('default') }}"> <img id="footer-logo-white-img" class="img-fluid" src="{{ asset('img/logo-white.png') }}" alt="Make all beauty"></a>
+                                    <p class="my-3">MakeAllBeauty - Sitio web de belleza, que cambia la vida.</p>
+                                    <div class="social-icons social-colored footer-social">
+                                        <ul class="list-inline">
+                                            <li>
+                                                <a href="#"><i class="lab la-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="lab la-instagram"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12 mt-6 mt-lg-0">
+                                    <h4 class="mb-4 text-white">Ponte en <span class="font-w-3">Contacto</span></h4>
+                                    <div class="footer-cntct">
+                                        <ul class="media-icon list-unstyled">
+                                            <li><i class="flaticon-email"></i>  <a href="mailto:themeht23@gmail.com">doalcompany2021@gmail.com</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-12 mt-6 mt-lg-0">
+                                    <h4 class="mb-4 text-white">Productos <span class="font-w-3">Populares</span></h4>
+                                    <div class="row text-center" id="footer-producto">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="secondary-footer theme-bg">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col">
+                        <div class="copyright p-3 dark-bg">
+                            Copyright ©2021 Todos los derechos reservados | MakeAllBeauty
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--footer end-->
+
+
+</div>
+
+<!-- page wrapper end -->
+
+
+<!--back-to-top start-->
+
+<div class="scroll-top"><a class="smoothscroll" href="#top"><i class="lar la-hand-pointer"></i></a></div>
+
+<!--back-to-top end-->
+
+
+<!-- inject js start -->
+
+<!--== theme-plugin -->
+<script src="{{ asset('js/theme-plugin.js') }}"></script>
+
+<!--== theme-script -->
+<script src="{{ asset('js/theme-script.js') }}"></script>
+<script src="{{ asset('js/functions.js') }}"></script>
+<script>
+    $.post('{{ path('default_visita_pais') }}');
+    $.ajax({
+        url: '{{ path('default_footer_product') }}',
+        method: 'POST',
+        beforeSend: function () {
+            $('#footer-producto').html('<span><i class="fa fa-spinner fa-pulse fa-2x text-warning"></i> cargando...</span>');
+        }
+    }).done(function (response) {
+        $('#footer-producto').children().remove();
+        $.each(response, function (key, val) {
+            $('#footer-producto').append(
+                '<div class="col-lg-4 col-md-6 col-sm-6 mt-2">' +
+                    '<a href="'+val.url+'"><img src="'+val.image+'" alt="'+val.name+'" class="img-fluid"></a>' +
+                '</div>'
+            );
+        });
+    });
+
+    $('#formSearch').submit(function (event) {
+        event.preventDefault();
+        let cadena = $('#cadena').val();
+        let url = this.action+'/'+cadena;
+        window.location.replace(url);
+    });
+</script>
+<!-- inject js end -->
+{% block js %}{% endblock %}
+</body>
+
+</html>

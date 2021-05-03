@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class DefaultController
@@ -34,17 +35,22 @@ class DefaultController extends AbstractController
     {
         return $this->redirectToRoute('inicio');
     }
-    
+
     /**
-     * @Route("/inicio/", name="inicio")
+     * @Route({"en": "/home/{_locale}", "es": "/inicio/{_locale}"}, name="inicio", requirements={"_locale":"es|en"})
+     * @param CategoryProductRepository $categoryProductRepository
+     * @param ProductRepository $productRepository
+     * @param BlogRepository $blogRepository
+     * @param UrlGeneratorInterface $urlGenerator
+     * @return Response
      */
-    public function index(CategoryProductRepository $categoryProductRepository, ProductRepository $productRepository, BlogRepository $blogRepository): Response
+    public function index(CategoryProductRepository $categoryProductRepository, ProductRepository $productRepository, BlogRepository $blogRepository, UrlGeneratorInterface $urlGenerator): Response
     {
         return $this->render('default/index.html.twig', [
             'categories' => $categoryProductRepository->findBy(['active' => true], ['name' => 'ASC']),
             'productos' => $productRepository->findBy(['public' => true], ['visita' => 'DESC'], 8),
+            'newProducts' => $productRepository->findBy(['public' => true], ['id' => 'DESC'], 10),
             'blogs' => $blogRepository->findBy([ 'public' => true ], ['id' => 'DESC']),
-            'portafolio' => $productRepository->findBy(['public' => true])
         ]);
     }
 

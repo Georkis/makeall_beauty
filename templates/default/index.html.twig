@@ -43,6 +43,53 @@
             </div>
         </div>
     </section>
+    <!--new product start-->
+    <section class="p-0">
+        <div class="container-fluid p-0 ">
+            <div class="row">
+                <div class="col-12 pt-2">
+                    <div class="dark-bg p-md-7 p-4 pb-10 rounded-end">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="section-title">
+                                    <h6 class="text-theme text-uppercase letter-space-1">Nuevos productos</h6>
+                                    <h2 class="title">Nuevos productos, <span class="font-w-3">No lo encontrarás a mejor precio.</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pe-0">
+            <div class="row mt-n8">
+                <div class="col-11 ms-auto">
+                    <div class="owl-carousel no-pb popup-gallery" data-dots="false" data-items="4" data-md-items="3"
+                         data-sm-items="2" data-xs-items="1" data-margin="20" data-autoplay="true">
+                        {% for p in newProducts %}
+                            <div class="item">
+                                <div class="project-item position-relative overflow-hidden rounded">
+                                    <img class="img-center w-100" src="{{ asset('images/' ~ p.image) }}" alt="">
+                                    <a class="popup-img" href="{{ asset('images/' ~ p.image) }}"> <i
+                                                class="las la-search-plus"></i>
+                                    </a>
+                                    <div class="project-title"><span
+                                                class="mb-2 text-white">{{ p | Truncar(40) }}</span>
+                                        <h4 class="text-theme">{{ p.lead | Truncar(50) }}</h4>
+                                        <a class="btn btn-dark btn-sm"
+                                           href="{{ path('default_categoria_producto', {'id' : p.id, 'slug' : p.slug }) }}">Leer
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--new project end-->
     <section class="container-fluid bg-fixture">
         <div class="container">
             <div class="row">

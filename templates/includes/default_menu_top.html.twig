@@ -1,36 +1,86 @@
-<nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand logo" href="{{ path('default') }}">
-        <img id="logo-img" class="img-fluid" src="{{ asset('img/logo.png') }}" alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span></span>
-        <span></span>
-        <span></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto me-auto position-relative">
-            <!-- Home -->
-            <li class="nav-link">
-                <a class="nav-link" href="{{ path('inicio') }}">Inicio</a>
-            </li>
-            {% if categoryProducts %}
-            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Departamentos</a>
-                <ul class="dropdown-menu">
-                    <li><a class="nav-item" href="{{ path('default_categoria') }}">Todos los departamentos</a></li>
-                    {% for cp in categoryProducts %}
-                        <li><a class="nav-item" href="{{ path('default_categoria_producto', { 'id' : cp.id, 'slug' : cp.slug }) }}">{{ cp }}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-            {% endif %}
-            {% if blogs > 0 %}
-                <li class="nav-item">
-                    <a class="nav-link ml-2" href="{{ path('default_blogs') }}">Blog</a>
+{% if app.request.locale == "es" %}
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand logo" href="{{ path('default') }}">
+            <img id="logo-img" class="img-fluid" src="{{ asset('img/logo.png') }}" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto me-auto position-relative">
+                <!-- Home -->
+                <li class="nav-link">
+                    <a class="nav-link" href="{{ path('inicio') }}">{{ 'inicio' | trans }}</a>
                 </li>
-            {% endif %}
-        </ul>
-        <form id="formSearch" name="formSearch" method="get" class="d-flex" action="{{ path('default_search_product') }}">
-            <input id="cadena" name="cadena" required="required" type="search" class="form-control me-2 form-search" placeholder="Buscar producto" aria-label="Search products" aria-describedby="Search products">
-            <button class="btn btn-outline-primary btn-search" type="submit" id="button-addon2"><i class="las la-search text-theme2"></i></button>
-        </form>
-    </div>
-</nav>
+                {% if categoryProducts %}
+                    <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Departamentos</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-item" href="{{ path('default_categoria') }}">Todos los departamentos</a></li>
+                            {% for cp in categoryProducts %}
+                                <li><a class="nav-item" href="{{ path('default_categoria_producto', { 'id' : cp.id, 'slug' : cp.slug }) }}">{{ cp }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+                {% if blogs > 0 %}
+                    <li class="nav-item">
+                        <a class="nav-link ml-2" href="{{ path('default_blogs') }}">Blog</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <form id="formSearch" name="formSearch" method="get" class="d-flex" action="{{ path('default_search_product') }}">
+                <input id="cadena" name="cadena" required="required" type="search" class="form-control me-2 form-search" placeholder="Buscar producto" aria-label="Search products" aria-describedby="Search products">
+                <button class="btn btn-outline-primary btn-search" type="submit" id="button-addon2"><i class="las la-search text-theme2"></i></button>
+            </form>
+        </div>
+    </nav>
+{% endif %}
+
+{% if app.request.locale == "en" %}
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand logo" href="{{ path('default') }}">
+            <img id="logo-img" class="img-fluid" src="{{ asset('img/logo.png') }}" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto me-auto position-relative">
+                <!-- Home -->
+                <li class="nav-link">
+                    <a class="nav-link" href="{{ path('inicio') }}">{{ 'home' | trans }}</a>
+                </li>
+                {% if categoryProducts %}
+                    <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ 'departaments' | trans }}</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-item" href="{{ path('default_categoria') }}">Todos los departamentos</a></li>
+                            {% for cp in categoryProducts %}
+                                <li><a class="nav-item" href="{{ path('default_categoria_producto', { 'id' : cp.id, 'slug' : cp.slug }) }}">{{ cp }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+                {% if blogs > 0 %}
+                    <li class="nav-item">
+                        <a class="nav-link ml-2" href="{{ path('default_blogs') }}">Blog</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <form id="formSearch" name="formSearch" method="get" class="d-flex" action="{{ path('default_search_product') }}">
+                <input id="cadena" name="cadena" required="required" type="search" class="form-control me-2 form-search" placeholder="Buscar producto" aria-label="Search products" aria-describedby="Search products">
+                <button class="btn btn-outline-primary btn-search" type="submit" id="button-addon2"><i class="las la-search text-theme2"></i></button>
+            </form>
+{#            <div class="d-lg-inline-block">#}
+{#                <ul class="list-inline">#}
+{#                    <li>#}
+{#                        {% set locale = app.request.locale %}#}
+{#                        <a href="{{ path(app.request.get('_route'), { '_locale' : locale == 'es' ? 'en' : 'es' }) }}">{{ locale == 'es' ? 'En' : 'Es' }}</a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+        </div>
+    </nav>
+{% endif %}
+

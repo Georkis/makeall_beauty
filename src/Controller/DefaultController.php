@@ -105,7 +105,8 @@ class DefaultController extends AbstractController
         return $this->render('default/_products_populate.html.twig', [
             'products' => $products,
             'total' => $ultimaPagina,
-            'current' => $page
+            'current' => $page,
+            'route' => $this->generateUrl('default_product_pupulate').'/'
         ]);
     }
 
@@ -126,7 +127,8 @@ class DefaultController extends AbstractController
         return $this->render('default/_products_likeless.html.twig', [
             'products' => $products,
             'total' => $ultimaPagina,
-            'current' => $page
+            'current' => $page,
+            'route' =>  $this->generateUrl('default_product_likeless').'/'
         ]);
     }
 
@@ -162,7 +164,8 @@ class DefaultController extends AbstractController
             'products' => $products,
             'cadena' => $cadena,
             'total' => $ultimaPagina,
-            'current' => $page
+            'current' => $page,
+            'route' => $this->generateUrl('default_search_product', [ 'cadena' => $cadena ]).'/'
         ]);
     }
 
@@ -339,7 +342,8 @@ class DefaultController extends AbstractController
             'tags' => $tagRepository->findAll(),
             'lastBlogs' => $blogRepository->findBy(['category' => $categoryProduct, 'public' => true], ['date' => 'DESC'], 5, 5),
             'total' => $ultimaPagina,
-            'current' => $page
+            'current' => $page,
+            'route' => $this->generateUrl('default_blog_category', ['slug' => $categoryProduct->getSlug()]).'/'
         ]);
     }
 
@@ -368,7 +372,8 @@ class DefaultController extends AbstractController
             'tags' => $tagRepository->findAll(),
             'lastBlogs' => $blogRepository->findBy(['public' => true], ['date' => 'DESC'], 5, 5),
             'total' => $ultimaPagina,
-            'current' => $page
+            'current' => $page,
+            'route' => $this->generateUrl('default_blog_tag', ['slug' => $tag->getSlug()]).'/'
         ]);
     }
 

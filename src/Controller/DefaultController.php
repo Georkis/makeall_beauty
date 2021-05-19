@@ -83,7 +83,8 @@ class DefaultController extends AbstractController
             'products' => $products,
             'categoria' => $categoryProduct,
             'total' => $ultimaPagina,
-            'current' => $page
+            'current' => $page,
+            'route' => $this->generateUrl('default_categoria_producto', ['id' => $categoryProduct->getId(), 'slug' => $categoryProduct->getSlug()]).'/'
         ]);
     }
 
@@ -307,7 +308,8 @@ class DefaultController extends AbstractController
             'tags' => $tagRepository->findAll(),
             'lastBlogs' => $blogRepository->findBy(['public' => true], ['date' => 'DESC'], 5, 5),
             'total' => $ultimaPagina,
-            'current' => $page
+            'current' => $page,
+            'route' => $this->generateUrl('default_blogs').'/'
         ]);
     }
 

@@ -111,7 +111,6 @@
                                 {% endif %}
                             {% endapply %}
                         {% endmacro %}
-                        {% set route = app.request.requestUri ~ '/' %}
                         {{ _self.pagination(total, current, route) }}
 
                     </div>
